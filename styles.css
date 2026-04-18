@@ -1,0 +1,217 @@
+/* ============================================================
+   Club Manager Pro — Video Presentation Styles (Scenes 4-16)
+   ============================================================ */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --green-darkest: #0a1a0f;
+  --green-dark: #0f2814;
+  --green-mid: #1a3a1f;
+  --green-accent: #2d5a35;
+  --green-light: #4a8a55;
+  --green-bright: #5ac46b;
+  --gold: #c9a84c;
+  --gold-dim: #8a7535;
+  --white: #ffffff;
+  --black: #000000;
+  --gray-dark: #1a1a1a;
+  --gray-light: #888888;
+
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--black);
+  font-family: var(--font-sans);
+}
+
+#viewport {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--black);
+}
+
+/* Base Scene Layer */
+.bg-layer {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--green-darkest);
+  z-index: 1;
+}
+
+.scene {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.scene.active {
+  visibility: visible;
+}
+
+/* Play Overlay & Progress */
+.play-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.play-overlay__title { font-family: var(--font-serif); font-size: 48px; color: var(--gold); }
+.play-overlay__subtitle { font-size: 20px; color: var(--white); margin-top: 10px; }
+.play-btn { margin-top: 40px; font-size: 60px; color: var(--white); }
+.progress-bar { position: absolute; bottom: 0; left: 0; height: 4px; background: var(--gold); width: 0%; z-index: 900; }
+
+/* Global UI Elements */
+.header { position: absolute; top: 60px; left: 100px; right: 100px; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(201,168,76,0.3); padding-bottom: 20px; }
+.header__logo { font-family: var(--font-serif); font-size: 32px; color: var(--gold); letter-spacing: 2px; }
+.header__time { font-size: 24px; color: var(--gray-light); }
+
+.title-main { font-family: var(--font-serif); font-size: 56px; color: var(--white); margin-bottom: 16px; }
+.subtitle-main { font-size: 24px; color: var(--gray-light); margin-bottom: 60px; font-weight: 300; }
+
+.pointer {
+  position: absolute; top: 800px; left: 960px; width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,0.4); border: 2px solid white; pointer-events: none; opacity: 0; z-index: 50;
+  box-shadow: 0 0 20px rgba(255,255,255,0.5);
+}
+
+/* Scene 4: Menu */
+.menu-grid { display: flex; gap: 40px; }
+.menu-btn {
+  width: 360px; height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 1px solid rgba(201,168,76,0.2); background: rgba(255,255,255,0.02); border-radius: 20px; gap: 30px;
+}
+.menu-btn.hover { border-color: var(--gold); background: rgba(201,168,76,0.1); transform: scale(0.98); }
+.menu-btn__icon { font-size: 64px; }
+.menu-btn__label { font-family: var(--font-serif); font-size: 32px; color: var(--white); }
+
+/* Scene 5: DNI Input */
+.dni-display { 
+  font-size: 64px; color: var(--white); letter-spacing: 8px; font-family: monospace;
+  height: 90px; margin-bottom: 60px; border-bottom: 2px solid var(--gold); width: 400px; text-align: center;
+}
+.numpad { display: grid; grid-template-columns: repeat(3, 120px); gap: 20px; }
+.num-key { 
+  width: 120px; height: 100px; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; font-size: 36px; color: var(--white);
+}
+.num-key.pressed { background: rgba(255,255,255,0.2); transform: scale(0.95); }
+.func-key { font-size: 16px; font-weight: bold; background: rgba(255,255,255,0.05); }
+
+/* Scene 6: Profile */
+.profile-card {
+  width: 600px; background: rgba(255,255,255,0.03); border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 24px; padding: 60px; display: flex; flex-direction: column; align-items: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.profile-avatar { width: 140px; height: 140px; border-radius: 50%; background: var(--green-mid); border: 2px solid var(--gold); font-family: var(--font-serif); font-size: 56px; color: var(--white); display: flex; align-items: center; justify-content: center; margin-bottom: 30px; }
+.profile-name { font-family: var(--font-serif); font-size: 42px; color: var(--white); margin-bottom: 10px; }
+.profile-matricula { font-size: 18px; color: var(--gray-light); margin-bottom: 40px; letter-spacing: 2px; }
+.profile-stats { display: flex; width: 100%; gap: 30px; }
+.stat-box { flex: 1; padding: 24px; background: rgba(0,0,0,0.4); border-radius: 16px; text-align: center; }
+.stat-label { font-size: 14px; text-transform: uppercase; color: var(--gray-light); margin-bottom: 10px; letter-spacing: 1px; }
+.stat-val { font-family: var(--font-serif); font-size: 32px; font-weight: bold; }
+.stat-val--gold { color: var(--gold); }
+.stat-val--green { color: var(--green-bright); }
+
+/* Scene 7: Holes */
+.holes-container { display: flex; gap: 40px; margin-bottom: 80px; }
+.hole-btn { width: 240px; height: 240px; border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; }
+.hole-btn.hover { border-color: var(--gold); background: rgba(201,168,76,0.1); }
+.hole-num { font-family: var(--font-serif); font-size: 80px; color: var(--white); }
+.hole-lbl { font-size: 16px; color: var(--gray-light); letter-spacing: 4px; }
+.action-btn { background: var(--gold); color: var(--green-darkest); font-size: 24px; font-weight: bold; padding: 24px 60px; border-radius: 12px; opacity: 0; }
+.action-btn.hover { transform: scale(0.97); }
+
+/* Scene 8/9: Card Animations */
+.totem-slot-wrapper { position: relative; width: 400px; height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+.totem-slot { width: 300px; height: 12px; background: #000; border: 2px solid #222; border-radius: 6px; position: relative; z-index: 10; }
+.printed-card { width: 280px; height: 160px; background: var(--white); border-radius: 8px 8px 0 0; padding: 24px; position: absolute; bottom: 0; z-index: 5; display: flex; flex-direction: column; opacity: 0; }
+.card-p-logo { font-family: var(--font-serif); font-size: 14px; color: var(--green-darkest); font-weight: bold; }
+.card-p-name { font-family: var(--font-serif); font-size: 22px; color: var(--black); margin-top: auto; margin-bottom: 8px; }
+.card-p-hc { font-size: 12px; color: var(--green-accent); font-weight: bold; }
+.ready-text { font-size: 32px; color: var(--green-bright); margin-top: 60px; font-weight: bold; letter-spacing: 2px; opacity: 0; }
+
+.kiosk-insert-ui { display: flex; flex-direction: column; align-items: center; margin-top: 100px; }
+.insert-arrow { font-size: 40px; color: var(--gold); animation: floatD 1s infinite alternate; }
+@keyframes floatD { from { transform: translateY(-10px); } to { transform: translateY(10px); } }
+.pulse-glow { box-shadow: 0 0 20px var(--green-bright); border-color: var(--green-bright); }
+.insert-card { border-radius: 0 0 8px 8px; bottom: auto; top: -180px; position: relative; opacity: 1; }
+
+/* Scene 10: OCR */
+.scanner-container { position: relative; width: 320px; height: 500px; border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; background: #fff; overflow: hidden; }
+.scanner-card { width: 100%; height: 100%; background: repeating-linear-gradient(rgba(0,0,0,0.05) 0, rgba(0,0,0,0.05) 20px, transparent 20px, transparent 40px); }
+.scanner-line { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--green-bright); box-shadow: 0 0 20px var(--green-bright); }
+.scanner-text { font-size: 28px; color: var(--white); margin-top: 40px; letter-spacing: 2px; }
+.scanner-progress-bar { width: 400px; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; margin-top: 30px; overflow: hidden; }
+.scanner-progress-fill { width: 0%; height: 100%; background: var(--green-bright); }
+.scanner-percent { margin-top: 16px; font-size: 20px; color: var(--gold); }
+
+/* Scene 11: Grid Correction */
+.grid-container { display: grid; grid-template-columns: repeat(10, 80px); gap: 2px; background: rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; border: 1px solid rgba(201,168,76,0.3); }
+.g-cell { padding: 16px; background: rgba(10,26,15,0.9); color: var(--white); text-align: center; font-size: 24px; font-family: monospace; display: flex; align-items: center; justify-content: center; }
+.g-head { font-size: 14px; color: var(--gold); font-family: var(--font-sans); }
+.g-score.highlight { background: rgba(201,100,76,0.5); /* Orange highlight for correction */ }
+.g-score.corrected { background: rgba(74,138,85,0.4); /* Green back */ }
+
+.mini-numpad { display: flex; gap: 10px; position: absolute; top: 650px; left: 860px; opacity: 0; }
+.mn-key { width: 60px; height: 60px; background: rgba(0,0,0,0.8); border: 1px solid var(--gold); border-radius: 8px; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.mn-key.hover { background: var(--gold); color: black; }
+
+/* Scene 12: Success */
+.success-screen { display: flex; flex-direction: column; align-items: center; opacity: 0; position: absolute; top: 40%; }
+.checkmark-circle { width: 140px; height: 140px; border-radius: 50%; background: var(--green-bright); display: flex; align-items: center; justify-content: center; margin-bottom: 40px; transform: scale(0); }
+.checkmark-circle stroke { stroke: white; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 48; stroke-dashoffset: 48; }
+.checkmark-circle path, .checkmark-circle circle { stroke: white; stroke-width: 4; stroke-linecap: round; }
+.success-text { font-family: var(--font-serif); font-size: 48px; color: var(--white); margin-bottom: 16px; }
+.success-sub { font-size: 20px; color: var(--gray-light); letter-spacing: 1px; }
+
+/* Scene 13: Dashboard */
+.dash-bg { width: 100%; height: 100%; padding: 100px; display: flex; flex-direction: column; }
+.dash-header { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 30px; margin-bottom: 60px; }
+.dash-title { font-size: 32px; color: var(--white); font-weight: 300; letter-spacing: 2px; }
+.dash-live { font-size: 20px; color: red; font-weight: bold; letter-spacing: 2px; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0% {opacity:1} 50% {opacity:0.3} 100% {opacity:1} }
+.dash-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+.d-metric { background: rgba(30,30,30,0.5); border: 1px solid rgba(255,255,255,0.05); padding: 50px 40px; border-radius: 16px; }
+.d-label { font-size: 18px; color: var(--gray-light); text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; }
+.d-val { font-family: var(--font-serif); font-size: 72px; color: var(--white); }
+.d-val-gold { color: var(--gold); }
+.d-val-green { color: var(--green-bright); }
+.dash-sub { position: absolute; bottom: 80px; left: 0; width: 100%; text-align: center; color: var(--gray-light); font-size: 20px; letter-spacing: 4px; text-transform: uppercase; }
+
+/* Scene 14/15: Text Impacts */
+.text-impact-box { display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; }
+.ti-main { font-size: 64px; color: var(--white); font-weight: bold; margin-bottom: 24px; text-align: center; }
+.ti-sub { font-size: 28px; color: var(--gray-light); text-align: center; }
+.ti-serif { font-family: var(--font-serif); font-weight: normal; }
+
+/* Scene 16: Closing Logos */
+.closers { display: flex; flex-direction: column; align-items: center; opacity: 0; }
+.closer-club { font-family: var(--font-serif); font-size: 64px; color: var(--white); letter-spacing: 4px; }
+.closer-line { width: 120px; height: 1px; background: var(--gold); margin: 40px 0; }
+.closer-wis { font-size: 28px; color: var(--gray-light); letter-spacing: 6px; text-transform: uppercase; }

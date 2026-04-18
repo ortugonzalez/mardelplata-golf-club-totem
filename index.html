@@ -1,0 +1,3100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Mar del Plata Golf Club | Totem Premium Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-950: #081220;
+      --navy-900: #0d1a2b;
+      --navy-850: #122238;
+      --navy-800: #152843;
+      --charcoal-900: #101418;
+      --charcoal-800: #171d23;
+      --charcoal-700: #27303a;
+      --bone-100: #f7f2e8;
+      --bone-200: #ebe3d3;
+      --bone-300: #d8cebc;
+      --gold-500: #c2a35a;
+      --gold-400: #d5bc83;
+      --gold-300: #e8d7ad;
+      --green-500: #547a5a;
+      --green-400: #739579;
+      --red-500: #9c4c4c;
+      --shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.34);
+      --shadow-card: 0 18px 44px rgba(0, 0, 0, 0.24);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+      --border-soft: 1px solid rgba(232, 215, 173, 0.16);
+      --border-strong: 1px solid rgba(232, 215, 173, 0.28);
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", "Segoe UI", sans-serif;
+      --transition: 180ms ease;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: var(--font-sans);
+      background:
+        radial-gradient(circle at top, rgba(213, 188, 131, 0.16), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(84, 122, 90, 0.18), transparent 24%),
+        linear-gradient(140deg, #07111d 0%, #0a1626 35%, #111b29 100%);
+      color: var(--bone-100);
+      overflow: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto;
+      pointer-events: none;
+      filter: blur(30px);
+      opacity: 0.6;
+    }
+
+    body::before {
+      top: -14vh;
+      left: -8vw;
+      width: 28vw;
+      height: 28vw;
+      background: rgba(194, 163, 90, 0.16);
+    }
+
+    body::after {
+      right: -10vw;
+      bottom: -12vh;
+      width: 34vw;
+      height: 34vw;
+      background: rgba(84, 122, 90, 0.14);
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+      color: inherit;
+    }
+
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+    }
+
+    .device {
+      position: relative;
+      width: min(94vw, calc(94vh * 9 / 16));
+      aspect-ratio: 9 / 16;
+      border-radius: 42px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 18%),
+        linear-gradient(180deg, rgba(8, 18, 32, 0.96), rgba(16, 20, 24, 0.97));
+      border: 1px solid rgba(232, 215, 173, 0.16);
+      box-shadow:
+        0 40px 140px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      isolation: isolate;
+    }
+
+    .device::before,
+    .device::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .device::before {
+      background:
+        linear-gradient(135deg, rgba(232, 215, 173, 0.08), transparent 16%),
+        radial-gradient(circle at 20% 16%, rgba(232, 215, 173, 0.1), transparent 14%),
+        radial-gradient(circle at 88% 76%, rgba(84, 122, 90, 0.1), transparent 18%);
+    }
+
+    .device::after {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 34px 34px;
+      opacity: 0.16;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.8) 28%, rgba(0, 0, 0, 0.9));
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 18px;
+      padding: 24px 28px 18px;
+      border-bottom: 1px solid rgba(232, 215, 173, 0.12);
+      background: linear-gradient(180deg, rgba(8, 18, 32, 0.84), rgba(8, 18, 32, 0.62));
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand--hero {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+    }
+
+    .crest {
+      width: 58px;
+      height: 58px;
+      flex: 0 0 auto;
+      color: var(--gold-400);
+      filter: drop-shadow(0 8px 18px rgba(194, 163, 90, 0.18));
+    }
+
+    .brand--hero .crest {
+      width: 124px;
+      height: 124px;
+    }
+
+    .brand__eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--bone-300);
+      opacity: 0.8;
+    }
+
+    .brand__title {
+      font-family: var(--font-serif);
+      font-size: 30px;
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--bone-100);
+    }
+
+    .brand--hero .brand__title {
+      font-size: clamp(48px, 5.3vw, 72px);
+    }
+
+    .brand__subtitle {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.72);
+      margin-top: 4px;
+    }
+
+    .brand--hero .brand__subtitle {
+      font-size: 15px;
+      letter-spacing: 0.28em;
+    }
+
+    .topbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-self: end;
+    }
+
+    .screen-root {
+      position: relative;
+      z-index: 1;
+      height: calc(100% - 108px);
+      overflow: auto;
+      padding: 26px 22px 28px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(194, 163, 90, 0.34) transparent;
+    }
+
+    .screen-root::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .screen-root::-webkit-scrollbar-thumb {
+      background: rgba(194, 163, 90, 0.26);
+      border-radius: 999px;
+    }
+
+    .screen {
+      display: grid;
+      gap: 20px;
+      min-height: 100%;
+      animation: fadeSlide 260ms ease;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .screen__hero {
+      position: relative;
+      padding: 28px;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(145deg, rgba(20, 37, 58, 0.92), rgba(12, 20, 31, 0.95)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent);
+      border: var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .screen__hero::before {
+      content: "";
+      position: absolute;
+      inset: -20% -8% auto auto;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(194, 163, 90, 0.16), transparent 68%);
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--gold-300);
+      margin-bottom: 8px;
+    }
+
+    .hero-title,
+    .section-title,
+    .panel-title,
+    .metric-value,
+    .status-value {
+      font-family: var(--font-serif);
+    }
+
+    .hero-title {
+      font-size: clamp(36px, 4.4vw, 58px);
+      line-height: 0.95;
+      margin: 0 0 10px;
+      color: var(--bone-100);
+    }
+
+    .hero-copy,
+    .section-copy {
+      margin: 0;
+      color: rgba(247, 242, 232, 0.78);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    .hero-stack {
+      display: grid;
+      gap: 22px;
+      align-items: end;
+    }
+
+    .hero-chip-row,
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip,
+    .top-pill,
+    .status-chip,
+    .mini-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border: 1px solid rgba(232, 215, 173, 0.16);
+      color: var(--bone-100);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .top-pill--demo {
+      background: rgba(194, 163, 90, 0.14);
+      border-color: rgba(194, 163, 90, 0.28);
+      color: var(--gold-300);
+    }
+
+    .top-pill--clock {
+      min-width: 90px;
+      justify-content: center;
+    }
+
+    .top-pill--quiet {
+      color: rgba(247, 242, 232, 0.72);
+    }
+
+    .lang-toggle,
+    .ghost-btn,
+    .quiet-btn,
+    .nav-btn,
+    .touch-btn,
+    .secondary-btn,
+    .tertiary-btn,
+    .method-btn,
+    .keypad-btn,
+    .score-btn {
+      transition:
+        transform var(--transition),
+        background var(--transition),
+        border-color var(--transition),
+        color var(--transition),
+        box-shadow var(--transition),
+        opacity var(--transition);
+    }
+
+    .lang-toggle,
+    .ghost-btn,
+    .quiet-btn,
+    .nav-btn {
+      min-height: 42px;
+      padding: 0 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(232, 215, 173, 0.16);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--bone-100);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .lang-toggle:hover,
+    .ghost-btn:hover,
+    .quiet-btn:hover,
+    .nav-btn:hover,
+    .touch-btn:hover,
+    .secondary-btn:hover,
+    .tertiary-btn:hover,
+    .method-btn:hover,
+    .keypad-btn:hover,
+    .score-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .lang-toggle.is-active,
+    .ghost-btn.is-active,
+    .nav-btn.is-active,
+    .method-btn.is-active,
+    .touch-btn.is-active,
+    .score-btn.is-active {
+      background: linear-gradient(180deg, rgba(194, 163, 90, 0.24), rgba(194, 163, 90, 0.12));
+      border-color: rgba(194, 163, 90, 0.42);
+      color: var(--gold-300);
+      box-shadow: 0 10px 22px rgba(194, 163, 90, 0.14);
+    }
+
+    .nav-cluster {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .card-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .card-grid--home {
+      grid-template-columns: 1fr;
+    }
+
+    .primary-card {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      padding: 22px 22px 24px;
+      border-radius: 30px;
+      background:
+        linear-gradient(160deg, rgba(18, 34, 56, 0.92), rgba(12, 20, 31, 0.92)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent);
+      border: var(--border-soft);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .primary-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -60px -80px auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(194, 163, 90, 0.14), transparent 70%);
+    }
+
+    .primary-card__icon {
+      width: 64px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      font-size: 26px;
+      background: linear-gradient(180deg, rgba(194, 163, 90, 0.16), rgba(255, 255, 255, 0.04));
+      border: 1px solid rgba(194, 163, 90, 0.28);
+      color: var(--gold-300);
+    }
+
+    .primary-card__title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: 34px;
+      color: var(--bone-100);
+      letter-spacing: 0.02em;
+    }
+
+    .primary-card__copy {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(247, 242, 232, 0.78);
+      max-width: 48ch;
+    }
+
+    .card-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-top: 6px;
+    }
+
+    .touch-btn,
+    .secondary-btn,
+    .tertiary-btn,
+    .method-btn {
+      min-height: 52px;
+      padding: 0 18px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .touch-btn {
+      background: linear-gradient(180deg, var(--gold-400), var(--gold-500));
+      color: var(--navy-950);
+      box-shadow: 0 16px 30px rgba(194, 163, 90, 0.18);
+    }
+
+    .secondary-btn {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--bone-100);
+      border-color: rgba(232, 215, 173, 0.18);
+    }
+
+    .tertiary-btn {
+      background: rgba(84, 122, 90, 0.12);
+      color: #dce7dd;
+      border-color: rgba(115, 149, 121, 0.28);
+    }
+
+    .touch-btn:disabled,
+    .secondary-btn:disabled,
+    .tertiary-btn:disabled,
+    .method-btn:disabled,
+    .keypad-btn:disabled {
+      opacity: 0.44;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .meta-line {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.62);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .panel {
+      position: relative;
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      border: var(--border-soft);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent),
+        rgba(11, 19, 31, 0.76);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .panel--deep {
+      background:
+        linear-gradient(180deg, rgba(194, 163, 90, 0.05), transparent),
+        linear-gradient(180deg, rgba(10, 17, 29, 0.96), rgba(11, 19, 31, 0.94));
+    }
+
+    .panel--accent::before,
+    .panel--deep::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(194, 163, 90, 0.48), transparent);
+      opacity: 0.8;
+    }
+
+    .panel-title {
+      margin: 0 0 8px;
+      font-size: 31px;
+      color: var(--bone-100);
+    }
+
+    .panel-subtitle {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(247, 242, 232, 0.76);
+    }
+
+    .profile-card {
+      display: grid;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .profile-hero {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(232, 215, 173, 0.12);
+    }
+
+    .profile-avatar {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background:
+        radial-gradient(circle at top, rgba(194, 163, 90, 0.32), rgba(194, 163, 90, 0.1)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(194, 163, 90, 0.3);
+      color: var(--gold-300);
+      font-family: var(--font-serif);
+      font-size: 34px;
+      box-shadow: 0 12px 28px rgba(194, 163, 90, 0.12);
+    }
+
+    .profile-name {
+      margin: 0 0 4px;
+      font-family: var(--font-serif);
+      font-size: 38px;
+      line-height: 0.95;
+    }
+
+    .profile-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stat-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(232, 215, 173, 0.1);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.58);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      line-height: 1;
+      color: var(--bone-100);
+    }
+
+    .stat-value--gold {
+      color: var(--gold-300);
+    }
+
+    .stat-value--green {
+      color: #d1e3d3;
+    }
+
+    .stat-value--red {
+      color: #f1c3c3;
+    }
+
+    .utility-actions {
+      display: grid;
+      gap: 14px;
+    }
+
+    .utility-card {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent),
+        rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(232, 215, 173, 0.12);
+    }
+
+    .utility-card__title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: 30px;
+    }
+
+    .utility-card__copy {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(247, 242, 232, 0.76);
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 10px;
+    }
+
+    .field label {
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.62);
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 64px;
+      padding: 0 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(232, 215, 173, 0.16);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--bone-100);
+      font-size: 18px;
+      outline: none;
+    }
+
+    .field input:focus {
+      border-color: rgba(194, 163, 90, 0.46);
+      box-shadow: 0 0 0 4px rgba(194, 163, 90, 0.12);
+    }
+
+    .suggestion-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .suggestion-chip {
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(232, 215, 173, 0.14);
+      background: rgba(255, 255, 255, 0.04);
+      color: rgba(247, 242, 232, 0.88);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .keypad-shell {
+      display: grid;
+      gap: 16px;
+    }
+
+    .dni-display {
+      min-height: 88px;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 22px;
+      border: 1px solid rgba(194, 163, 90, 0.22);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+      font-family: var(--font-serif);
+      font-size: clamp(34px, 4vw, 50px);
+      letter-spacing: 0.18em;
+      color: var(--bone-100);
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .keypad-btn {
+      min-height: 84px;
+      border-radius: 22px;
+      border: 1px solid rgba(232, 215, 173, 0.12);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent),
+        rgba(255, 255, 255, 0.03);
+      color: var(--bone-100);
+      font-size: 30px;
+      font-family: var(--font-serif);
+    }
+
+    .keypad-btn--action {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-family: var(--font-sans);
+    }
+
+    .segment,
+    .option-grid,
+    .method-grid,
+    .quick-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .segment {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .option-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .method-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .quick-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .choice-card,
+    .service-card,
+    .chart-card,
+    .receipt-card,
+    .status-card,
+    .info-row,
+    .score-row {
+      border-radius: 20px;
+      border: 1px solid rgba(232, 215, 173, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .choice-card,
+    .service-card {
+      padding: 18px;
+      display: grid;
+      gap: 8px;
+      text-align: left;
+    }
+
+    .choice-card.is-active {
+      border-color: rgba(194, 163, 90, 0.44);
+      background: linear-gradient(180deg, rgba(194, 163, 90, 0.16), rgba(255, 255, 255, 0.03));
+      box-shadow: 0 16px 28px rgba(194, 163, 90, 0.12);
+    }
+
+    .choice-card__title,
+    .service-card__title,
+    .receipt-title,
+    .chart-card__title {
+      margin: 0;
+      font-family: var(--font-serif);
+      color: var(--bone-100);
+    }
+
+    .choice-card__title {
+      font-size: 28px;
+    }
+
+    .choice-card__copy,
+    .service-card__copy,
+    .chart-card__copy,
+    .receipt-copy {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.55;
+      color: rgba(247, 242, 232, 0.72);
+    }
+
+    .service-card__title {
+      font-size: 26px;
+    }
+
+    .summary-box {
+      display: grid;
+      gap: 14px;
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(194, 163, 90, 0.2);
+      background:
+        linear-gradient(180deg, rgba(194, 163, 90, 0.08), transparent),
+        rgba(12, 20, 31, 0.82);
+      box-shadow: var(--shadow-card);
+    }
+
+    .summary-main {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(232, 215, 173, 0.1);
+    }
+
+    .summary-label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.58);
+    }
+
+    .summary-value {
+      margin-top: 4px;
+      font-family: var(--font-serif);
+      font-size: 44px;
+      line-height: 0.94;
+      color: var(--gold-300);
+    }
+
+    .summary-note {
+      font-size: 13px;
+      color: rgba(247, 242, 232, 0.72);
+      line-height: 1.6;
+    }
+
+    .calculation {
+      display: grid;
+      gap: 8px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(232, 215, 173, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .calc-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(247, 242, 232, 0.82);
+    }
+
+    .calc-line strong {
+      color: var(--gold-300);
+      font-weight: 600;
+    }
+
+    .receipt-card {
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+      background:
+        linear-gradient(180deg, rgba(84, 122, 90, 0.08), transparent),
+        rgba(255, 255, 255, 0.03);
+    }
+
+    .receipt-title {
+      font-size: 28px;
+    }
+
+    .receipt-list,
+    .detail-list,
+    .status-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .detail-list {
+      gap: 8px;
+    }
+
+    .detail-item,
+    .status-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      font-size: 13px;
+      color: rgba(247, 242, 232, 0.82);
+    }
+
+    .detail-item strong,
+    .status-line strong {
+      font-weight: 600;
+      color: var(--bone-100);
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(247, 242, 232, 0.82);
+    }
+
+    .status-indicator::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.26);
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.04);
+    }
+
+    .status-indicator.is-complete::before {
+      background: var(--green-400);
+      box-shadow: 0 0 0 4px rgba(115, 149, 121, 0.14);
+    }
+
+    .status-indicator.is-alert::before {
+      background: #d08e8e;
+      box-shadow: 0 0 0 4px rgba(156, 76, 76, 0.14);
+    }
+
+    .manager-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .metric-card {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(232, 215, 173, 0.12);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent),
+        rgba(255, 255, 255, 0.025);
+      box-shadow: var(--shadow-card);
+    }
+
+    .metric-label {
+      margin-bottom: 10px;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.58);
+    }
+
+    .metric-value {
+      font-size: 38px;
+      line-height: 0.96;
+      color: var(--bone-100);
+    }
+
+    .metric-footnote {
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: rgba(247, 242, 232, 0.72);
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .chart-card {
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .chart-card__title {
+      font-size: 27px;
+    }
+
+    .bar-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .bar-line {
+      display: grid;
+      grid-template-columns: 84px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+      color: rgba(247, 242, 232, 0.78);
+    }
+
+    .bar-track {
+      position: relative;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--gold-500), var(--gold-300));
+    }
+
+    .bar-fill--green {
+      background: linear-gradient(90deg, var(--green-500), #9fc0a4);
+    }
+
+    .ring-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .ring-card {
+      display: grid;
+      gap: 10px;
+      place-items: center;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(232, 215, 173, 0.1);
+    }
+
+    .ring {
+      --value: 50;
+      width: 74px;
+      height: 74px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        radial-gradient(closest-side, rgba(8, 18, 32, 0.96) 72%, transparent 74% 100%),
+        conic-gradient(var(--gold-400) calc(var(--value) * 1%), rgba(255, 255, 255, 0.08) 0);
+      font-size: 15px;
+      color: var(--bone-100);
+      font-weight: 600;
+    }
+
+    .ring-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.68);
+      text-align: center;
+    }
+
+    .status-board {
+      display: grid;
+      gap: 12px;
+    }
+
+    .status-card {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 15px 16px;
+    }
+
+    .status-card__label {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.82);
+    }
+
+    .status-value {
+      font-size: 20px;
+      color: var(--bone-100);
+    }
+
+    .status-value.is-ok {
+      color: #dce7dd;
+    }
+
+    .status-value.is-watch {
+      color: #f0d7b0;
+    }
+
+    .status-value.is-alert {
+      color: #f1c3c3;
+    }
+
+    .scanner-shell {
+      display: grid;
+      gap: 16px;
+    }
+
+    .scanner-card {
+      position: relative;
+      min-height: 220px;
+      padding: 18px;
+      border-radius: 28px;
+      border: 1px solid rgba(232, 215, 173, 0.16);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent),
+        rgba(247, 242, 232, 0.06);
+      overflow: hidden;
+    }
+
+    .scanner-paper {
+      position: relative;
+      height: 100%;
+      min-height: 180px;
+      border-radius: 24px;
+      background:
+        repeating-linear-gradient(
+          180deg,
+          rgba(8, 18, 32, 0.08) 0,
+          rgba(8, 18, 32, 0.08) 2px,
+          transparent 2px,
+          transparent 24px
+        ),
+        linear-gradient(180deg, rgba(247, 242, 232, 0.98), rgba(236, 228, 214, 0.94));
+      box-shadow: inset 0 0 0 1px rgba(8, 18, 32, 0.08);
+      overflow: hidden;
+    }
+
+    .scanner-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(var(--scan-progress, 0) * 1%);
+      height: 4px;
+      background: linear-gradient(90deg, transparent, rgba(84, 122, 90, 0.85), transparent);
+      box-shadow: 0 0 20px rgba(84, 122, 90, 0.45);
+      transition: top 180ms linear;
+    }
+
+    .scanner-overlay {
+      position: absolute;
+      inset: 18px;
+      display: grid;
+      align-content: end;
+      pointer-events: none;
+    }
+
+    .scanner-progress {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(8, 18, 32, 0.68);
+      border: 1px solid rgba(232, 215, 173, 0.16);
+      backdrop-filter: blur(12px);
+    }
+
+    .scanner-progress strong {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--gold-300);
+    }
+
+    .table-shell {
+      display: grid;
+      gap: 12px;
+    }
+
+    .score-table {
+      display: grid;
+      gap: 8px;
+      max-height: 360px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .score-head,
+    .score-row {
+      display: grid;
+      grid-template-columns: 52px 52px 1fr 1fr 78px;
+      gap: 10px;
+      align-items: center;
+      padding: 12px 14px;
+    }
+
+    .score-head {
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(232, 215, 173, 0.12);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.62);
+    }
+
+    .score-row {
+      cursor: pointer;
+    }
+
+    .score-row.is-selected {
+      border-color: rgba(194, 163, 90, 0.44);
+      background: linear-gradient(180deg, rgba(194, 163, 90, 0.12), rgba(255, 255, 255, 0.03));
+    }
+
+    .score-row.is-flagged {
+      border-color: rgba(156, 76, 76, 0.38);
+      background: linear-gradient(180deg, rgba(156, 76, 76, 0.14), rgba(255, 255, 255, 0.03));
+    }
+
+    .score-row__flag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .score-row__flag.is-ok {
+      color: #dce7dd;
+      background: rgba(84, 122, 90, 0.16);
+    }
+
+    .score-row__flag.is-flagged {
+      color: #f1c3c3;
+      background: rgba(156, 76, 76, 0.16);
+    }
+
+    .score-editor {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(232, 215, 173, 0.12);
+    }
+
+    .score-editor__header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .score-editor__value {
+      font-family: var(--font-serif);
+      font-size: 44px;
+      color: var(--gold-300);
+    }
+
+    .score-selector {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .score-btn {
+      min-height: 62px;
+      border-radius: 18px;
+      border: 1px solid rgba(232, 215, 173, 0.14);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent),
+        rgba(255, 255, 255, 0.03);
+      color: var(--bone-100);
+      font-family: var(--font-serif);
+      font-size: 28px;
+    }
+
+    .status-strip {
+      display: grid;
+      gap: 10px;
+    }
+
+    .status-line {
+      min-height: 52px;
+      padding: 0 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(232, 215, 173, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .status-line.is-complete {
+      border-color: rgba(84, 122, 90, 0.3);
+      background: linear-gradient(180deg, rgba(84, 122, 90, 0.16), rgba(255, 255, 255, 0.03));
+    }
+
+    .status-line.is-current {
+      border-color: rgba(194, 163, 90, 0.34);
+      background: linear-gradient(180deg, rgba(194, 163, 90, 0.14), rgba(255, 255, 255, 0.03));
+    }
+
+    .manager-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .manager-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(156, 76, 76, 0.14);
+      border: 1px solid rgba(156, 76, 76, 0.24);
+      color: #f1c3c3;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .manager-live::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f1c3c3;
+      box-shadow: 0 0 14px rgba(241, 195, 195, 0.7);
+    }
+
+    .alert-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .alert-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(232, 215, 173, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 13px;
+      color: rgba(247, 242, 232, 0.82);
+    }
+
+    .alert-item__tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 96px;
+      min-height: 34px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .alert-item__tag.is-ok {
+      background: rgba(84, 122, 90, 0.16);
+      color: #dce7dd;
+    }
+
+    .alert-item__tag.is-watch {
+      background: rgba(194, 163, 90, 0.16);
+      color: #f0d7b0;
+    }
+
+    .alert-item__tag.is-alert {
+      background: rgba(156, 76, 76, 0.16);
+      color: #f1c3c3;
+    }
+
+    .footer-hint {
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.5);
+      padding-bottom: 6px;
+    }
+
+    @media (max-width: 860px) {
+      .topbar {
+        grid-template-columns: 1fr;
+        justify-items: stretch;
+        gap: 12px;
+      }
+
+      .topbar__actions {
+        justify-self: stretch;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .chart-grid,
+      .manager-grid,
+      .option-grid,
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .segment,
+      .method-grid,
+      .score-selector {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .profile-stats,
+      .score-head,
+      .score-row {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        padding: 0;
+      }
+
+      .device {
+        width: 100vw;
+        min-height: 100vh;
+        aspect-ratio: auto;
+        height: 100vh;
+        border-radius: 0;
+      }
+
+      .screen-root {
+        padding: 18px 16px 24px;
+      }
+
+      .screen__hero,
+      .panel,
+      .primary-card {
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      .brand--hero .crest {
+        width: 96px;
+        height: 96px;
+      }
+
+      .brand__title {
+        font-size: 26px;
+      }
+
+      .hero-title {
+        font-size: 34px;
+      }
+
+      .primary-card__title,
+      .panel-title,
+      .service-card__title,
+      .choice-card__title {
+        font-size: 28px;
+      }
+
+      .profile-name {
+        font-size: 32px;
+      }
+
+      .summary-value,
+      .score-editor__value,
+      .metric-value {
+        font-size: 34px;
+      }
+
+      .keypad-btn {
+        min-height: 74px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="device">
+      <header class="topbar">
+        <div class="nav-cluster">
+          <button class="nav-btn" data-action="go-home" id="homeBtn">Inicio</button>
+          <button class="nav-btn" data-action="go-back" id="backBtn">Volver</button>
+        </div>
+        <div id="headerBrand"></div>
+        <div class="topbar__actions">
+          <div class="top-pill top-pill--demo" id="demoPill">Modo demo</div>
+          <button class="lang-toggle" data-action="toggle-language" id="langToggle">EN</button>
+          <div class="top-pill top-pill--quiet top-pill--clock" id="clockPill">00:00</div>
+        </div>
+      </header>
+      <main class="screen-root" id="screenRoot" aria-live="polite"></main>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const GOLFISTICS_URL = "https://www.mardelplatagolf.com/golf/index2.php";
+
+      const translations = {
+        es: {
+          homeEyebrow: "Totem institucional",
+          homeTitle: "Acceso premium al club",
+          homeCopy: "Demo interactiva para check-in, green fee, servicios administrativos y carga post ronda, manteniendo la estetica fina y tradicional del Mar del Plata Golf Club.",
+          memberLabel: "Socios",
+          memberDesc: "Ingreso por DNI, perfil del socio, acceso a Golfistics y servicios de Secretaria con atajos claros y tactiles.",
+          guestLabel: "Invitados",
+          guestDesc: "Registro simple con nombre y DNI, emision de green fee y cobro directo desde el totem en un flujo ejecutivo.",
+          cardLabel: "Cargar tarjeta",
+          cardDesc: "Escaneo post ronda, lectura hoyo por hoyo, correccion manual y sincronizacion con Golfistics, torneo y AAG.",
+          enter: "Ingresar",
+          open: "Abrir",
+          managerPanel: "Panel gerencial",
+          managerDesc: "Vision ejecutiva de uso, ingresos, automatizacion y estado operativo del sistema.",
+          memberLoginTitle: "Ingreso de socio por DNI",
+          memberLoginCopy: "En modo demo se acepta cualquier DNI y se genera un perfil verosimil para presentar el flujo completo del club.",
+          clear: "Borrar",
+          delete: "Corregir",
+          confirm: "Confirmar",
+          memberPanelTitle: "Panel del socio",
+          guestPanelTitle: "Panel del invitado",
+          golfistics: "Golfistics",
+          secretariat: "Servicios de Secretaria",
+          openGolfistics: "Abrir Golfistics",
+          openServices: "Ver servicios",
+          registerGuest: "Registro de invitado",
+          guestCopy: "Solicitamos nombre y DNI para emitir green fee, identificar la ronda y habilitar el pago desde el totem.",
+          guestName: "Nombre y apellido",
+          guestDni: "DNI",
+          continue: "Continuar",
+          useDemoGuest: "Cargar invitado demo",
+          servicesTitle: "Servicios de Secretaria",
+          servicesCopy: "Modulo premium para green fee, cuenta corriente y pago de cuota, pensado para atencion autonoma sin perder categoria institucional.",
+          greenFee: "Sacar Green Fee",
+          accountStatus: "Ver Estado de Cuenta",
+          payQuota: "Pagar Cuota",
+          greenFeeTitle: "Emision de Green Fee",
+          greenFeeCopy: "Defini el tipo de ronda, selecciona tee, calcula handicap de juego y emiti tarjeta, ticket fiscal y cobro.",
+          tournamentQuestion: "Juega torneo hoy",
+          yesTournament: "Si, juega torneo",
+          noTournament: "No, ronda social",
+          formatOfDay: "Formato del dia",
+          chooseHoles: "Cantidad de hoyos",
+          chooseTee: "Tee de salida",
+          redTee: "Rojo",
+          yellowTee: "Amarillo",
+          blueTee: "Azul",
+          ladies: "Damas",
+          gentlemen: "Caballeros",
+          paymentMethod: "Metodo de cobro",
+          qrPayment: "QR",
+          terminalPayment: "Terminal",
+          issueGreenFee: "Emitir green fee y tarjeta",
+          printCard: "Tarjeta impresa",
+          fiscalTicket: "Ticket fiscal emitido",
+          paymentApproved: "Cobro aprobado",
+          playingHandicap: "Handicap de juego",
+          greenFeeReceipt: "Operacion emitida",
+          accountTitle: "Estado de Cuenta",
+          accountCopy: "Vista ejecutiva y clara para saldo, vencimiento, credito disponible y estado general del socio.",
+          quotaTitle: "Pago de Cuota",
+          quotaCopy: "Simulacion premium de pago con confirmacion visual, pensada para resolver la gestion sin pasar por mostrador.",
+          monthlyPlan: "Cuota mensual",
+          semesterPlan: "Semestral",
+          annualPlan: "Anual",
+          simulatePayment: "Simular pago",
+          paymentConfirmed: "Pago confirmado",
+          cardTitle: "Carga de tarjeta post ronda",
+          cardCopy: "Escaneo, OCR, validacion, correccion manual y sincronizacion integral en un unico flujo de cierre.",
+          scanCard: "Escanear tarjeta",
+          syncCard: "Sincronizar",
+          detectedError: "Error detectado",
+          validationReady: "Validacion completada",
+          syncReady: "Listo para sincronizar",
+          cardScanned: "Tarjeta escaneada",
+          syncedGolfistics: "Sincronizado con Golfistics",
+          loadedTournament: "Cargado en torneo",
+          sentAag: "Enviado a la AAG",
+          managerTitle: "Panel gerencial premium",
+          managerCopy: "Lectura ejecutiva para direccion, gerencia y Secretaria con metricas operativas, comerciales y de automatizacion.",
+          useThisDemo: "Usar esta demo",
+          backToServices: "Volver a servicios",
+          backToPanel: "Volver al panel",
+          todayFormat: "Fourball Americana - medal sobre score neto",
+          pendingSelection: "Pendiente de seleccion",
+          socialRound: "Ronda social",
+          tournamentRound: "Ronda de torneo",
+          statusCurrent: "Estado actual",
+          dueDate: "Vencimiento",
+          availableCredit: "Credito disponible",
+          consultedBy: "Consulta realizada por",
+          paymentPlan: "Plan elegido",
+          automation: "Automatizacion",
+          systemState: "Estado del sistema",
+          operationalAlerts: "Alertas operativas",
+          homeHint: "Totem listo para demo institucional",
+          anyDniHint: "Acepta cualquier DNI en demo",
+          activeDemo: "Demo activa",
+          socialVsGuest: "Socios vs invitados",
+          qrVsTerminal: "QR vs terminal",
+          teeUsage: "Uso de tees",
+          occupancy: "Ocupacion por horario",
+          rounds: "Rondas 9 / 18 / 36",
+          frequentPlayers: "Jugadores frecuentes",
+          operationalStatus: "Estado operativo",
+          correctionCount: "Tarjetas corregidas",
+          avgHandicap: "Handicap promedio",
+          accountQueries: "Cuentas consultadas",
+          serviceUsage: "Uso de servicios",
+          adminHours: "Ahorro administrativo",
+          checkInTime: "Tiempo medio de check-in",
+          participation: "Participacion en torneos",
+          feesIssued: "Green fees emitidos",
+          revenues: "Ingresos",
+          quotasPaid: "Cuotas pagadas",
+          noProfileYet: "Todavia no hay perfil seleccionado",
+          activeMember: "Socio activo",
+          activeGuest: "Invitado del dia",
+          selectScore: "Correccion manual",
+          reviewScore: "Revisa los hoyos destacados y ajusta el score final antes de sincronizar.",
+          viewDashboard: "Ver panel gerencial",
+          touchToEdit: "Toca un hoyo para editar",
+          openFlow: "Abrir flujo"
+        },
+        en: {
+          homeEyebrow: "Institutional kiosk",
+          homeTitle: "Premium access to the club",
+          homeCopy: "Interactive demo for check-in, green fee, administrative services and post round card upload, keeping the elegant and traditional style of Mar del Plata Golf Club.",
+          memberLabel: "Members",
+          memberDesc: "DNI access, member profile, Golfistics shortcut and Secretariat services with clear touch-first actions.",
+          guestLabel: "Guests",
+          guestDesc: "Simple registration with name and DNI, green fee issue and direct payment from the kiosk in an executive flow.",
+          cardLabel: "Upload card",
+          cardDesc: "Post round scan, hole by hole reading, manual correction and sync with Golfistics, tournament and AAG.",
+          enter: "Enter",
+          open: "Open",
+          managerPanel: "Management dashboard",
+          managerDesc: "Executive view of usage, revenue, automation and system operational status.",
+          memberLoginTitle: "Member login by DNI",
+          memberLoginCopy: "In demo mode any DNI is accepted and a realistic profile is generated so the club can review the full journey.",
+          clear: "Clear",
+          delete: "Delete",
+          confirm: "Confirm",
+          memberPanelTitle: "Member panel",
+          guestPanelTitle: "Guest panel",
+          golfistics: "Golfistics",
+          secretariat: "Secretariat services",
+          openGolfistics: "Open Golfistics",
+          openServices: "View services",
+          registerGuest: "Guest registration",
+          guestCopy: "We request name and DNI to issue the green fee, identify the round and enable payment from the kiosk.",
+          guestName: "Full name",
+          guestDni: "DNI",
+          continue: "Continue",
+          useDemoGuest: "Load demo guest",
+          servicesTitle: "Secretariat services",
+          servicesCopy: "Premium module for green fee, account status and membership payment, designed for self-service without losing institutional elegance.",
+          greenFee: "Issue Green Fee",
+          accountStatus: "View Account Status",
+          payQuota: "Pay Membership",
+          greenFeeTitle: "Green Fee issuance",
+          greenFeeCopy: "Define round type, select tee, calculate playing handicap and issue card, fiscal receipt and payment.",
+          tournamentQuestion: "Playing a tournament today",
+          yesTournament: "Yes, tournament play",
+          noTournament: "No, social round",
+          formatOfDay: "Format of the day",
+          chooseHoles: "Number of holes",
+          chooseTee: "Starting tee",
+          redTee: "Red",
+          yellowTee: "Yellow",
+          blueTee: "Blue",
+          ladies: "Ladies",
+          gentlemen: "Gentlemen",
+          paymentMethod: "Payment method",
+          qrPayment: "QR",
+          terminalPayment: "Terminal",
+          issueGreenFee: "Issue green fee and card",
+          printCard: "Card printed",
+          fiscalTicket: "Fiscal receipt issued",
+          paymentApproved: "Payment approved",
+          playingHandicap: "Playing handicap",
+          greenFeeReceipt: "Issued operation",
+          accountTitle: "Account status",
+          accountCopy: "Executive clear view for balance, due date, available credit and overall member status.",
+          quotaTitle: "Membership payment",
+          quotaCopy: "Premium payment simulation with strong visual confirmation, designed to solve the process without front desk intervention.",
+          monthlyPlan: "Monthly fee",
+          semesterPlan: "Semiannual",
+          annualPlan: "Annual",
+          simulatePayment: "Simulate payment",
+          paymentConfirmed: "Payment confirmed",
+          cardTitle: "Post round card upload",
+          cardCopy: "Scan, OCR, validation, manual correction and full sync in one closing journey.",
+          scanCard: "Scan card",
+          syncCard: "Synchronize",
+          detectedError: "Detected error",
+          validationReady: "Validation complete",
+          syncReady: "Ready to sync",
+          cardScanned: "Card scanned",
+          syncedGolfistics: "Synced with Golfistics",
+          loadedTournament: "Loaded into tournament",
+          sentAag: "Sent to AAG",
+          managerTitle: "Premium management dashboard",
+          managerCopy: "Executive reading for leadership, management and Secretariat with operational, commercial and automation metrics.",
+          useThisDemo: "Use this demo",
+          backToServices: "Back to services",
+          backToPanel: "Back to panel",
+          todayFormat: "Fourball Americana - medal on net score",
+          pendingSelection: "Pending selection",
+          socialRound: "Social round",
+          tournamentRound: "Tournament round",
+          statusCurrent: "Current status",
+          dueDate: "Due date",
+          availableCredit: "Available credit",
+          consultedBy: "Consulted by",
+          paymentPlan: "Selected plan",
+          automation: "Automation",
+          systemState: "System status",
+          operationalAlerts: "Operational alerts",
+          homeHint: "Kiosk ready for institutional demo",
+          anyDniHint: "Any DNI accepted in demo",
+          activeDemo: "Demo active",
+          socialVsGuest: "Members vs guests",
+          qrVsTerminal: "QR vs terminal",
+          teeUsage: "Tee usage",
+          occupancy: "Hourly occupancy",
+          rounds: "Rounds 9 / 18 / 36",
+          frequentPlayers: "Frequent players",
+          operationalStatus: "Operational status",
+          correctionCount: "Corrected cards",
+          avgHandicap: "Average handicap",
+          accountQueries: "Accounts consulted",
+          serviceUsage: "Service usage",
+          adminHours: "Administrative hours saved",
+          checkInTime: "Average check-in time",
+          participation: "Tournament participation",
+          feesIssued: "Green fees issued",
+          revenues: "Revenue",
+          quotasPaid: "Memberships paid",
+          noProfileYet: "No selected profile yet",
+          activeMember: "Active member",
+          activeGuest: "Guest of the day",
+          selectScore: "Manual correction",
+          reviewScore: "Review highlighted holes and adjust final scores before synchronizing.",
+          viewDashboard: "Open management dashboard",
+          touchToEdit: "Tap a hole to edit",
+          openFlow: "Open flow"
+        }
+      };
+      const demoMembers = [
+        { name: "Roberto Castillo", initials: "RC", membership: "Matricula #4821", handicapIndex: 12.4, status: "Cuota al dia", course: "Cancha principal · pendiente de salida", balance: "$ 18.500", dueDate: "30/04/2026", credit: "$ 95.000", consultedBy: "Totem Hall Central" },
+        { name: "Sofia Alzaga", initials: "SA", membership: "Matricula #3618", handicapIndex: 8.7, status: "Habilitada", course: "Cancha principal · tee Amarillo", balance: "$ 0", dueDate: "31/05/2026", credit: "$ 120.000", consultedBy: "Totem Secretaria" },
+        { name: "Martin Raggio", initials: "MR", membership: "Matricula #5570", handicapIndex: 15.2, status: "Cuota al dia", course: "Cancha principal · tee Azul", balance: "$ 9.800", dueDate: "30/04/2026", credit: "$ 70.000", consultedBy: "Totem Hall Central" },
+        { name: "Clara Fernandez", initials: "CF", membership: "Matricula #2904", handicapIndex: 19.1, status: "Habilitada", course: "Cancha principal · tee Rojo", balance: "$ 0", dueDate: "31/05/2026", credit: "$ 110.000", consultedBy: "Totem Principal" }
+      ];
+
+      const demoGuests = [
+        { name: "Ignacio Pereyra", dni: "27188340" },
+        { name: "Lucia Mendez", dni: "31822814" },
+        { name: "Thomas Green", dni: "33114490" }
+      ];
+
+      const managerData = {
+        metrics: [
+          { labelKey: "feesIssued", value: "128", note: "41 mas que el sabado pasado" },
+          { labelKey: "revenues", value: "$ 4.820.000", note: "Incluye green fees, cuotas y servicios" },
+          { labelKey: "socialVsGuest", value: "72% / 28%", note: "Socios activos y flujo de invitados del dia" },
+          { labelKey: "qrVsTerminal", value: "61% / 39%", note: "Preferencia de cobro observada hoy" },
+          { labelKey: "checkInTime", value: "01:42", note: "Promedio desde identificacion hasta emision" },
+          { labelKey: "automation", value: "94%", note: "Procesos resueltos sin intervencion manual" },
+          { labelKey: "correctionCount", value: "7", note: "Tarjetas corregidas manualmente" },
+          { labelKey: "avgHandicap", value: "14,8", note: "Promedio sobre rondas cargadas en la fecha" },
+          { labelKey: "quotasPaid", value: "36", note: "Pagos de cuota resueltos desde el totem" },
+          { labelKey: "accountQueries", value: "58", note: "Consultas de cuenta del dia" },
+          { labelKey: "serviceUsage", value: "222", note: "Interacciones sobre modulos de Secretaria" },
+          { labelKey: "adminHours", value: "22 h", note: "Horas semanales recuperadas por automatizacion" }
+        ],
+        occupancy: [
+          { label: "07-09", value: 68 },
+          { label: "09-11", value: 92 },
+          { label: "11-13", value: 84 },
+          { label: "13-15", value: 56 },
+          { label: "15-17", value: 72 }
+        ],
+        teeUsage: [
+          { label: "Amarillo", value: 58, style: "gold" },
+          { label: "Azul", value: 31, style: "green" },
+          { label: "Rojo", value: 11, style: "gold" }
+        ],
+        rounds: [
+          { label: "9 hoyos", value: 18 },
+          { label: "18 hoyos", value: 83 },
+          { label: "36 hoyos", value: 9 }
+        ],
+        participation: [
+          { label: "Torneo del dia", value: 64 },
+          { label: "Ronda social", value: 36 },
+          { label: "Post ronda cargada", value: 88 }
+        ],
+        frequentPlayers: [
+          "Sofia Alzaga · 14 rondas / 30 dias",
+          "Roberto Castillo · 12 rondas / 30 dias",
+          "Clara Fernandez · 11 rondas / 30 dias"
+        ],
+        alerts: [
+          { label: "Estado del sistema", value: "Operativo", tone: "ok" },
+          { label: "Impresora fiscal", value: "Papel al 22%", tone: "watch" },
+          { label: "Sincronizacion AAG", value: "Latencia normal", tone: "ok" },
+          { label: "Caja terminal 2", value: "Requiere cierre", tone: "watch" }
+        ]
+      };
+
+      function createDefaultScoreRows() {
+        const parMap = [4, 5, 3, 4, 4, 5, 3, 4, 5, 4, 4, 3, 5, 4, 4, 3, 5, 4];
+        const ocrMap = [5, 6, 3, 5, 4, 6, 7, 4, 6, 5, 5, 4, 6, 8, 5, 3, 6, 5];
+        return parMap.map((par, index) => {
+          const hole = index + 1;
+          const flagged = hole === 7 || hole === 14;
+          const final = hole === 14 ? 6 : ocrMap[index];
+          return { hole, par, ocr: ocrMap[index], final, flagged, corrected: hole === 14 };
+        });
+      }
+
+      const state = {
+        locale: "es",
+        screen: "home",
+        history: ["home"],
+        memberDni: "",
+        guestForm: { name: "", dni: "" },
+        activeProfile: null,
+        userType: null,
+        greenFee: {
+          tournament: null,
+          holes: 18,
+          tee: "yellow",
+          paymentMethod: "qr",
+          issued: false,
+          ticketNumber: null,
+          amount: 0,
+          playingHandicap: 0
+        },
+        quotaPayment: { plan: "monthly", method: "qr", confirmed: false },
+        scorecard: {
+          rows: createDefaultScoreRows(),
+          selectedHole: 7,
+          scanProgress: 0,
+          scanRunning: false,
+          stages: { scanned: false, validated: false, golfistics: false, tournament: false, aag: false }
+        }
+      };
+
+      let scanInterval = null;
+      let syncTimeouts = [];
+
+      const screenRoot = document.getElementById("screenRoot");
+      const headerBrand = document.getElementById("headerBrand");
+      const clockPill = document.getElementById("clockPill");
+      const langToggle = document.getElementById("langToggle");
+      const demoPill = document.getElementById("demoPill");
+      const homeBtn = document.getElementById("homeBtn");
+      const backBtn = document.getElementById("backBtn");
+
+      function t(key) {
+        return translations[state.locale][key] || translations.es[key] || key;
+      }
+
+      function brandMarkup(mode = "compact") {
+        return `
+          <div class="brand ${mode === "hero" ? "brand--hero" : ""}">
+            <svg class="crest" viewBox="0 0 120 120" aria-hidden="true">
+              <path d="M60 8 92 20 100 48C99 77 82 98 60 112 38 98 21 77 20 48l8-28Z" fill="none" stroke="currentColor" stroke-width="4"></path>
+              <path d="M60 27c9 0 16 7 16 16 0 4-1 7-3 10l9 18" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+              <circle cx="60" cy="43" r="8" fill="none" stroke="currentColor" stroke-width="4"></circle>
+              <path d="M44 78c11-8 21-8 32 0" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+              <path d="M31 36c4 15 3 30-3 44M89 36c-4 15-3 30 3 44" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
+            </svg>
+            <div>
+              <div class="brand__eyebrow">Mar del Plata</div>
+              <div class="brand__title">Golf Club</div>
+              <div class="brand__subtitle">Institucional · Premium · Demo</div>
+            </div>
+          </div>
+        `;
+      }
+
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function formatCurrency(value) {
+        return new Intl.NumberFormat(state.locale === "es" ? "es-AR" : "en-US", {
+          style: "currency",
+          currency: "ARS",
+          maximumFractionDigits: 0
+        }).format(value);
+      }
+
+      function formatDate(date = new Date()) {
+        return new Intl.DateTimeFormat(state.locale === "es" ? "es-AR" : "en-US", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric"
+        }).format(date);
+      }
+
+      function getClockValue(date = new Date()) {
+        return new Intl.DateTimeFormat(state.locale === "es" ? "es-AR" : "en-US", {
+          hour: "2-digit",
+          minute: "2-digit"
+        }).format(date);
+      }
+
+      function setClock() {
+        clockPill.textContent = getClockValue();
+      }
+
+      function updateHeader() {
+        headerBrand.innerHTML = brandMarkup("compact");
+        langToggle.textContent = state.locale === "es" ? "EN" : "ES";
+        demoPill.textContent = state.locale === "es" ? "Modo demo" : "Demo mode";
+        homeBtn.textContent = state.locale === "es" ? "Inicio" : "Home";
+        backBtn.textContent = state.locale === "es" ? "Volver" : "Back";
+        document.documentElement.lang = state.locale;
+        setClock();
+      }
+
+      function pushScreen(screen) {
+        if (state.history[state.history.length - 1] !== screen) {
+          state.history.push(screen);
+        }
+      }
+
+      function navigate(screen, options = {}) {
+        state.screen = screen;
+        if (options.resetHistory) {
+          state.history = [screen];
+        } else {
+          pushScreen(screen);
+        }
+        render();
+      }
+
+      function goHome() {
+        stopScanAnimation();
+        clearSyncTimeouts();
+        state.screen = "home";
+        state.history = ["home"];
+        render();
+      }
+
+      function goBack() {
+        if (state.history.length > 1) {
+          state.history.pop();
+          state.screen = state.history[state.history.length - 1];
+          render();
+          return;
+        }
+        state.screen = "home";
+        render();
+      }
+
+      function getMemberFromDni(dni) {
+        const normalized = String(dni || "").replace(/\D/g, "");
+        const base = demoMembers[normalized ? Number(normalized.slice(-1)) % demoMembers.length : 0];
+        const handicapOffset = normalized ? (Number(normalized.slice(-2)) % 7) / 10 : 0;
+        return { ...base, dni: normalized || "00000000", handicapIndex: Number((base.handicapIndex + handicapOffset).toFixed(1)) };
+      }
+
+      function buildGuestProfile(name, dni) {
+        const cleanName = name && name.trim() ? name.trim() : demoGuests[0].name;
+        const cleanDni = dni && dni.trim() ? dni.trim() : demoGuests[0].dni;
+        const initials = cleanName.split(" ").map(part => part.charAt(0).toUpperCase()).slice(0, 2).join("");
+        return {
+          name: cleanName,
+          initials: initials || "IN",
+          membership: `Invitado · DNI ${cleanDni}`,
+          handicapIndex: 18.6,
+          status: state.locale === "es" ? "Green fee pendiente" : "Green fee pending",
+          course: state.locale === "es" ? "Acceso del dia en preparacion" : "Daily access in preparation",
+          balance: "$ 0",
+          dueDate: formatDate(),
+          credit: "$ 0",
+          consultedBy: state.locale === "es" ? "Totem invitados" : "Guest kiosk",
+          dni: cleanDni
+        };
+      }
+
+      function getCurrentProfile() {
+        return state.activeProfile;
+      }
+
+      function getProfileStatusTone(profile) {
+        if (!profile) return "gold";
+        if ((profile.status || "").toLowerCase().includes("pendiente")) return "red";
+        return "green";
+      }
+
+      function getRateTable() {
+        return {
+          member: { social: { 9: 12000, 18: 18500, 36: 31800 }, tournament: 22000 },
+          guest: { social: { 9: 26500, 18: 39200, 36: 68800 }, tournament: 43000 }
+        };
+      }
+
+      function getTeeMeta(tee) {
+        const teeMap = {
+          red: { label: t("redTee"), slope: 0.98, audience: t("ladies") },
+          yellow: { label: t("yellowTee"), slope: 1.05, audience: t("gentlemen") },
+          blue: { label: t("blueTee"), slope: 1.14, audience: t("gentlemen") }
+        };
+        return teeMap[tee] || teeMap.yellow;
+      }
+
+      function computeGreenFee() {
+        const profile = getCurrentProfile();
+        const baseIndex = profile ? Number(profile.handicapIndex || 18) : 18;
+        const rateTable = getRateTable();
+        const userType = state.userType === "guest" ? "guest" : "member";
+        const teeMeta = getTeeMeta(state.greenFee.tee);
+        const playingHandicap = Math.max(0, Math.round(baseIndex * teeMeta.slope));
+        const amount = state.greenFee.tournament === true ? rateTable[userType].tournament : rateTable[userType].social[state.greenFee.holes];
+        state.greenFee.playingHandicap = playingHandicap;
+        state.greenFee.amount = amount || 0;
+      }
+
+      function scoreTotals() {
+        const totalPar = state.scorecard.rows.reduce((sum, row) => sum + row.par, 0);
+        const totalOcr = state.scorecard.rows.reduce((sum, row) => sum + row.ocr, 0);
+        const totalFinal = state.scorecard.rows.reduce((sum, row) => sum + row.final, 0);
+        const corrected = state.scorecard.rows.filter(row => row.corrected).length;
+        const pending = state.scorecard.rows.filter(row => row.flagged && !row.corrected).length;
+        return { totalPar, totalOcr, totalFinal, corrected, pending };
+      }
+
+      function startScanAnimation() {
+        stopScanAnimation();
+        clearSyncTimeouts();
+        state.scorecard.scanProgress = 0;
+        state.scorecard.scanRunning = true;
+        state.scorecard.stages = { scanned: false, validated: false, golfistics: false, tournament: false, aag: false };
+        state.scorecard.rows = createDefaultScoreRows();
+        state.scorecard.selectedHole = 7;
+        render();
+        scanInterval = window.setInterval(() => {
+          state.scorecard.scanProgress = Math.min(100, state.scorecard.scanProgress + 5);
+          if (state.scorecard.scanProgress >= 100) {
+            stopScanAnimation();
+            state.scorecard.stages.scanned = true;
+            state.scorecard.stages.validated = scoreTotals().pending === 0;
+          }
+          render();
+        }, 110);
+      }
+
+      function stopScanAnimation() {
+        if (scanInterval) {
+          window.clearInterval(scanInterval);
+          scanInterval = null;
+        }
+        state.scorecard.scanRunning = false;
+      }
+
+      function clearSyncTimeouts() {
+        syncTimeouts.forEach(timeoutId => window.clearTimeout(timeoutId));
+        syncTimeouts = [];
+      }
+
+      function syncScorecard() {
+        if (scoreTotals().pending > 0) return;
+        clearSyncTimeouts();
+        state.scorecard.stages.validated = true;
+        render();
+        syncTimeouts = [
+          window.setTimeout(() => { state.scorecard.stages.golfistics = true; render(); }, 450),
+          window.setTimeout(() => { state.scorecard.stages.tournament = true; render(); }, 900),
+          window.setTimeout(() => { state.scorecard.stages.aag = true; render(); }, 1350)
+        ];
+      }
+
+      function currentGreenFeeContextLabel() {
+        return state.greenFee.tournament === true ? t("tournamentRound") : t("socialRound");
+      }
+
+      function ensureGreenFeeDefaults() {
+        if (state.greenFee.tournament === null) state.greenFee.tournament = false;
+        if (!state.greenFee.tee) state.greenFee.tee = "yellow";
+        if (!state.greenFee.paymentMethod) state.greenFee.paymentMethod = "qr";
+        if (state.greenFee.tournament === true) state.greenFee.holes = 18;
+        computeGreenFee();
+      }
+      function renderPrimaryActionCard({ icon, title, copy, action }) {
+        return `
+          <article class="primary-card">
+            <div class="primary-card__icon">${icon}</div>
+            <div>
+              <h2 class="primary-card__title">${escapeHtml(title)}</h2>
+              <p class="primary-card__copy">${escapeHtml(copy)}</p>
+            </div>
+            <div class="card-footer">
+              <div class="meta-line">${t("useThisDemo")}</div>
+              <button class="touch-btn" data-action="${action}">${t("openFlow")}</button>
+            </div>
+          </article>
+        `;
+      }
+
+      function renderHome() {
+        return `
+          <section class="screen">
+            <section class="screen__hero">
+              <div class="hero-stack">
+                ${brandMarkup("hero")}
+                <div>
+                  <div class="eyebrow">${t("homeEyebrow")}</div>
+                  <h1 class="hero-title">${t("homeTitle")}</h1>
+                  <p class="hero-copy">${t("homeCopy")}</p>
+                </div>
+                <div class="hero-chip-row">
+                  <div class="chip">${t("activeDemo")}</div>
+                  <div class="chip">${t("anyDniHint")}</div>
+                  <div class="chip">${t("homeHint")}</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="card-grid card-grid--home">
+              ${renderPrimaryActionCard({ icon: "01", title: t("memberLabel"), copy: t("memberDesc"), action: "open-members" })}
+              ${renderPrimaryActionCard({ icon: "02", title: t("guestLabel"), copy: t("guestDesc"), action: "open-guests" })}
+              ${renderPrimaryActionCard({ icon: "03", title: t("cardLabel"), copy: t("cardDesc"), action: "open-card-upload" })}
+            </section>
+
+            <section class="panel panel--deep">
+              <div class="manager-banner">
+                <div>
+                  <div class="eyebrow">${t("managerPanel")}</div>
+                  <h2 class="panel-title">${t("managerTitle")}</h2>
+                  <p class="panel-subtitle">${t("managerDesc")}</p>
+                </div>
+                <button class="secondary-btn" data-action="open-dashboard">${t("viewDashboard")}</button>
+              </div>
+            </section>
+            <div class="footer-hint">${t("homeHint")}</div>
+          </section>
+        `;
+      }
+
+      function renderMemberLogin() {
+        return `
+          <section class="screen">
+            <section class="screen__hero">
+              <div class="eyebrow">${t("memberLabel")}</div>
+              <h1 class="hero-title">${t("memberLoginTitle")}</h1>
+              <p class="hero-copy">${t("memberLoginCopy")}</p>
+            </section>
+
+            <section class="grid-2">
+              <article class="panel panel--deep">
+                <div class="keypad-shell">
+                  <div class="dni-display">${escapeHtml(state.memberDni || "________")}</div>
+                  <div class="keypad">
+                    ${[1,2,3,4,5,6,7,8,9].map(number => `<button class="keypad-btn" data-action="add-digit" data-digit="${number}">${number}</button>`).join("")}
+                    <button class="keypad-btn keypad-btn--action" data-action="clear-dni">${t("clear")}</button>
+                    <button class="keypad-btn" data-action="add-digit" data-digit="0">0</button>
+                    <button class="keypad-btn keypad-btn--action" data-action="confirm-member" ${state.memberDni.length < 7 ? "disabled" : ""}>${t("confirm")}</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="panel">
+                <div class="eyebrow">${t("activeDemo")}</div>
+                <h2 class="panel-title">${t("memberPanelTitle")}</h2>
+                <p class="panel-subtitle">${t("anyDniHint")}</p>
+                <div class="suggestion-row" style="margin-top: 18px;">
+                  ${["28441903", "30188421", "27557018", "32904110"].map(dni => `<button class="suggestion-chip" data-action="fill-dni" data-dni="${dni}">${dni}</button>`).join("")}
+                </div>
+                <div class="summary-box" style="margin-top: 18px;">
+                  <div class="summary-main">
+                    <div>
+                      <div class="summary-label">${t("activeMember")}</div>
+                      <div class="summary-value" style="font-size: 34px;">${escapeHtml(state.memberDni || "DNI demo")}</div>
+                    </div>
+                    <div class="mini-chip">${t("activeDemo")}</div>
+                  </div>
+                  <p class="summary-note">${state.locale === "es"
+                    ? "Una vez confirmado, el totem muestra nombre, matricula, handicap, estado y accesos directos a Golfistics y Secretaria."
+                    : "Once confirmed, the kiosk shows name, membership, handicap, status and direct access to Golfistics and Secretariat."}</p>
+                </div>
+              </article>
+            </section>
+          </section>
+        `;
+      }
+
+      function renderProfilePanel({ titleKey, isGuest = false }) {
+        const profile = getCurrentProfile();
+        if (!profile) {
+          return `<section class="screen"><section class="panel panel--deep"><div class="eyebrow">${t(isGuest ? "guestLabel" : "memberLabel")}</div><h1 class="panel-title">${t(titleKey)}</h1><p class="panel-subtitle">${t("noProfileYet")}</p></section></section>`;
+        }
+        const statusTone = getProfileStatusTone(profile);
+        return `
+          <section class="screen">
+            <section class="screen__hero">
+              <div class="eyebrow">${t(isGuest ? "guestLabel" : "memberLabel")}</div>
+              <h1 class="hero-title">${t(titleKey)}</h1>
+              <p class="hero-copy">${isGuest
+                ? (state.locale === "es"
+                  ? "El invitado ya quedo registrado y puede continuar con green fee y pago sin asistencia del mostrador."
+                  : "The guest is already registered and can continue with green fee issuance and payment without front desk assistance.")
+                : (state.locale === "es"
+                  ? "Acceso inmediato a Golfistics y a los servicios administrativos mas consultados."
+                  : "Immediate access to Golfistics and the most requested administrative services.")}</p>
+            </section>
+
+            <section class="grid-2">
+              <article class="panel panel--deep profile-card">
+                <div class="profile-hero">
+                  <div class="profile-avatar">${escapeHtml(profile.initials)}</div>
+                  <div>
+                    <h2 class="profile-name">${escapeHtml(profile.name)}</h2>
+                    <div class="meta-line">${escapeHtml(profile.membership)}</div>
+                    <div class="profile-meta">
+                      <div class="chip">${escapeHtml(profile.status)}</div>
+                      <div class="chip">${escapeHtml(profile.course)}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="profile-stats">
+                  <div class="stat-card"><div class="stat-label">DNI</div><div class="stat-value">${escapeHtml(profile.dni || "-")}</div></div>
+                  <div class="stat-card"><div class="stat-label">Handicap index</div><div class="stat-value stat-value--gold">${escapeHtml(profile.handicapIndex)}</div></div>
+                  <div class="stat-card"><div class="stat-label">${t("statusCurrent")}</div><div class="stat-value stat-value--${statusTone}">${escapeHtml(profile.status)}</div></div>
+                  <div class="stat-card"><div class="stat-label">Cancha</div><div class="stat-value">${escapeHtml(profile.course)}</div></div>
+                </div>
+              </article>
+
+              <aside class="utility-actions">
+                <article class="utility-card">
+                  <div class="eyebrow">${t("golfistics")}</div>
+                  <h3 class="utility-card__title">${t("golfistics")}</h3>
+                  <p class="utility-card__copy">${state.locale === "es"
+                    ? "Abre la plataforma del club en una nueva pestana para consulta o continuidad operativa."
+                    : "Opens the club platform in a new tab for consultation or operational continuity."}</p>
+                  <button class="touch-btn" data-action="open-golfistics">${t("openGolfistics")}</button>
+                </article>
+
+                <article class="utility-card">
+                  <div class="eyebrow">${t("secretariat")}</div>
+                  <h3 class="utility-card__title">${t("servicesTitle")}</h3>
+                  <p class="utility-card__copy">${state.locale === "es"
+                    ? "Green fee, estado de cuenta y pago de cuota en una misma experiencia premium."
+                    : "Green fee, account status and membership payment in one premium experience."}</p>
+                  <button class="secondary-btn" data-action="open-services">${t("openServices")}</button>
+                </article>
+
+                ${isGuest ? `
+                  <article class="utility-card">
+                    <div class="eyebrow">${t("guestLabel")}</div>
+                    <h3 class="utility-card__title">${t("greenFee")}</h3>
+                    <p class="utility-card__copy">${state.locale === "es"
+                      ? "El invitado puede continuar directo al flujo de green fee y cobro."
+                      : "The guest can continue directly to the green fee and payment flow."}</p>
+                    <button class="tertiary-btn" data-action="open-green-fee">${t("greenFee")}</button>
+                  </article>
+                ` : ""}
+              </aside>
+            </section>
+          </section>
+        `;
+      }
+
+      function renderGuestRegistration() {
+        return `
+          <section class="screen">
+            <section class="screen__hero">
+              <div class="eyebrow">${t("guestLabel")}</div>
+              <h1 class="hero-title">${t("registerGuest")}</h1>
+              <p class="hero-copy">${t("guestCopy")}</p>
+            </section>
+
+            <section class="grid-2">
+              <article class="panel panel--deep">
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="guestName">${t("guestName")}</label>
+                    <input id="guestName" name="guestName" type="text" value="${escapeHtml(state.guestForm.name)}" placeholder="${escapeHtml(t("guestName"))}">
+                  </div>
+                  <div class="field">
+                    <label for="guestDni">${t("guestDni")}</label>
+                    <input id="guestDni" name="guestDni" type="text" inputmode="numeric" value="${escapeHtml(state.guestForm.dni)}" placeholder="00000000">
+                  </div>
+                  <div class="method-grid">
+                    <button class="touch-btn" id="confirmGuestBtn" data-action="confirm-guest" ${state.guestForm.name.trim().length < 3 || state.guestForm.dni.trim().length < 7 ? "disabled" : ""}>${t("continue")}</button>
+                    <button class="secondary-btn" data-action="demo-guest">${t("useDemoGuest")}</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="panel">
+                <div class="eyebrow">${t("activeDemo")}</div>
+                <h2 class="panel-title">${t("guestPanelTitle")}</h2>
+                <p class="panel-subtitle">${state.locale === "es"
+                  ? "Atajos pensados para una demo solida y facil de presentar al club."
+                  : "Shortcuts designed for a solid demo that is easy to present to the club."}</p>
+                <div class="suggestion-row" style="margin-top: 18px;">
+                  ${demoGuests.map((guest, index) => `<button class="suggestion-chip" data-action="prefill-guest" data-index="${index}">${escapeHtml(guest.name)}</button>`).join("")}
+                </div>
+                <div class="summary-box" style="margin-top: 18px;">
+                  <div class="summary-main">
+                    <div>
+                      <div class="summary-label">${t("activeGuest")}</div>
+                      <div class="summary-value" id="guestPreviewName" style="font-size: 34px;">${escapeHtml(state.guestForm.name || demoGuests[0].name)}</div>
+                    </div>
+                    <div class="mini-chip" id="guestPreviewDni">${escapeHtml(state.guestForm.dni || demoGuests[0].dni)}</div>
+                  </div>
+                  <p class="summary-note">${state.locale === "es"
+                    ? "Luego del registro, el invitado pasa al panel con green fee, cobro y datos de la ronda."
+                    : "After registration, the guest reaches a panel with green fee, payment and round information."}</p>
+                </div>
+              </article>
+            </section>
+          </section>
+        `;
+      }
+
+      function renderServicesHub() {
+        const profile = getCurrentProfile();
+        return `
+          <section class="screen">
+            <section class="screen__hero">
+              <div class="eyebrow">${t("secretariat")}</div>
+              <h1 class="hero-title">${t("servicesTitle")}</h1>
+              <p class="hero-copy">${t("servicesCopy")}</p>
+            </section>
+
+            <section class="grid-3">
+              <article class="service-card">
+                <div class="eyebrow">${t("greenFee")}</div>
+                <h2 class="service-card__title">${t("greenFee")}</h2>
+                <p class="service-card__copy">${state.locale === "es"
+                  ? "Emision completa con seleccion de torneo o ronda social, tee, handicap de juego y cobro."
+                  : "Full issuance with tournament or social round selection, tee, playing handicap and payment."}</p>
+                <button class="touch-btn" data-action="open-green-fee">${t("openFlow")}</button>
+              </article>
+
+              <article class="service-card">
+                <div class="eyebrow">${t("accountStatus")}</div>
+                <h2 class="service-card__title">${t("accountStatus")}</h2>
+                <p class="service-card__copy">${state.locale === "es"
+                  ? "Saldo, vencimiento y credito disponible con una lectura limpia y ejecutiva."
+                  : "Balance, due date and available credit with a clean executive reading."}</p>
+                <button class="secondary-btn" data-action="open-account">${t("openFlow")}</button>
+              </article>
+
+              <article class="service-card">
+                <div class="eyebrow">${t("payQuota")}</div>
+                <h2 class="service-card__title">${t("payQuota")}</h2>
+                <p class="service-card__copy">${state.locale === "es"
+                  ? "Simulacion de pago con confirmacion inmediata para mostrar autonomia real del totem."
+                  : "Payment simulation with immediate confirmation to show real kiosk autonomy."}</p>
+                <button class="secondary-btn" data-action="open-quota">${t("openFlow")}</button>
+              </article>
+            </section>
+
+            <section class="panel">
+              <div class="eyebrow">${state.userType === "guest" ? t("guestLabel") : t("memberLabel")}</div>
+              <h2 class="panel-title">${escapeHtml(profile ? profile.name : t("noProfileYet"))}</h2>
+              <p class="panel-subtitle">${escapeHtml(profile ? profile.membership : "")}</p>
+            </section>
+          </section>
+        `;
+      }
+
+      function renderGreenFee() {
+        ensureGreenFeeDefaults();
+        const profile = getCurrentProfile();
+        const teeMeta = getTeeMeta(state.greenFee.tee);
+        const receiptVisible = state.greenFee.issued;
+        const userLabel = state.userType === "guest" ? t("guestLabel") : t("memberLabel");
+        return `
+          <section class="screen">
+            <section class="screen__hero">
+              <div class="eyebrow">${t("greenFee")}</div>
+              <h1 class="hero-title">${t("greenFeeTitle")}</h1>
+              <p class="hero-copy">${t("greenFeeCopy")}</p>
+            </section>
+
+            <section class="grid-2">
+              <article class="panel panel--deep">
+                <div class="eyebrow">${userLabel}</div>
+                <h2 class="panel-title">${escapeHtml(profile ? profile.name : "Demo")}</h2>
+                <p class="panel-subtitle">${escapeHtml(profile ? profile.membership : "")}</p>
+
+                <div class="field" style="margin-top: 18px;">
+                  <label>${t("tournamentQuestion")}</label>
+                  <div class="segment">
+                    <button class="choice-card ${state.greenFee.tournament === true ? "is-active" : ""}" data-action="set-tournament" data-value="yes">
+                      <h3 class="choice-card__title">${t("yesTournament")}</h3>
+                      <p class="choice-card__copy">${t("todayFormat")}</p>
+                    </button>
+                    <button class="choice-card ${state.greenFee.tournament === false ? "is-active" : ""}" data-action="set-tournament" data-value="no">
+                      <h3 class="choice-card__title">${t("noTournament")}</h3>
+                      <p class="choice-card__copy">${state.locale === "es" ? "Eleccion libre de 9, 18 o 36 hoyos." : "Free choice of 9, 18 or 36 holes."}</p>
+                    </button>
+                  </div>
+                </div>
+
+                ${state.greenFee.tournament === true ? `
+                  <div class="calculation" style="margin-top: 16px;">
+                    <div class="summary-label">${t("formatOfDay")}</div>
+                    <div class="calc-line"><span>${t("todayFormat")}</span><strong>18</strong></div>
+                  </div>
+                ` : `
+                  <div class="field" style="margin-top: 18px;">
+                    <label>${t("chooseHoles")}</label>
+                    <div class="option-grid">
+                      ${[9, 18, 36].map(holes => `
+                        <button class="choice-card ${state.greenFee.holes === holes ? "is-active" : ""}" data-action="set-holes" data-holes="${holes}">
+                          <h3 class="choice-card__title">${holes}</h3>
+                          <p class="choice-card__copy">${state.locale === "es" ? "hoyos" : "holes"}</p>
+                        </button>
+                      `).join("")}
+                    </div>
+                  </div>
+                `}
+
+                <div class="field" style="margin-top: 18px;">
+                  <label>${t("chooseTee")}</label>
+                  <div class="option-grid">
+                    ${[
+                      { id: "red", title: t("redTee"), note: t("ladies") },
+                      { id: "yellow", title: t("yellowTee"), note: t("gentlemen") },
+                      { id: "blue", title: t("blueTee"), note: t("gentlemen") }
+                    ].map(tee => `
+                      <button class="choice-card ${state.greenFee.tee === tee.id ? "is-active" : ""}" data-action="set-tee" data-tee="${tee.id}">
+                        <h3 class="choice-card__title">${tee.title}</h3>
+                        <p class="choice-card__copy">${tee.note}</p>
+                      </button>
+                    `).join("")}
+                  </div>
+                </div>
+
+                <div class="field" style="margin-top: 18px;">
+                  <label>${t("paymentMethod")}</label>
+                  <div class="method-grid">
+                    <button class="method-btn ${state.greenFee.paymentMethod === "qr" ? "is-active" : ""}" data-action="set-payment-method" data-method="qr">${t("qrPayment")}</button>
+                    <button class="method-btn ${state.greenFee.paymentMethod === "terminal" ? "is-active" : ""}" data-action="set-payment-method" data-method="terminal">${t("terminalPayment")}</button>
+                  </div>
+                </div>
+              </article>
+
+              <aside class="summary-box">
+                <div class="summary-main">
+                  <div>
+                    <div class="summary-label">${t("greenFee")}</div>
+                    <div class="summary-value">${formatCurrency(state.greenFee.amount)}</div>
+                  </div>
+                  <div class="mini-chip">${currentGreenFeeContextLabel()}</div>
+                </div>
+
+                <div class="calculation">
+                  <div class="calc-line"><span>HI</span><strong>${escapeHtml(profile ? profile.handicapIndex : "-")}</strong></div>
+                  <div class="calc-line"><span>${t("chooseTee")}</span><strong>${teeMeta.label} · ${teeMeta.audience}</strong></div>
+                  <div class="calc-line"><span>Slope demo</span><strong>${teeMeta.slope.toFixed(2)}</strong></div>
+                  <div class="calc-line"><span>${t("playingHandicap")}</span><strong>${state.greenFee.playingHandicap}</strong></div>
+                </div>
+
+                <div class="detail-list">
+                  <div class="detail-item"><span>${t("formatOfDay")}</span><strong>${state.greenFee.tournament ? t("todayFormat") : currentGreenFeeContextLabel()}</strong></div>
+                  <div class="detail-item"><span>${t("chooseHoles")}</span><strong>${state.greenFee.holes}</strong></div>
+                  <div class="detail-item"><span>${t("paymentMethod")}</span><strong>${state.greenFee.paymentMethod === "qr" ? t("qrPayment") : t("terminalPayment")}</strong></div>
+                  <div class="detail-item"><span>Fecha</span><strong>${formatDate()}</strong></div>
+                </div>
+
+                <button class="touch-btn" data-action="issue-green-fee">${t("issueGreenFee")}</button>
+
+                ${receiptVisible ? `
+                  <article class="receipt-card">
+                    <div class="eyebrow">${t("greenFeeReceipt")}</div>
+                    <h3 class="receipt-title">${escapeHtml(profile ? profile.name : "")}</h3>
+                    <div class="receipt-list">
+                      <div class="status-line"><span>${t("printCard")}</span><strong>${state.greenFee.ticketNumber}</strong></div>
+                      <div class="status-line"><span>${t("fiscalTicket")}</span><strong>AFIP ${state.greenFee.ticketNumber}</strong></div>
+                      <div class="status-line"><span>${t("paymentApproved")}</span><strong>${state.greenFee.paymentMethod === "qr" ? t("qrPayment") : t("terminalPayment")}</strong></div>
+                      <div class="status-line"><span>${t("playingHandicap")}</span><strong>${state.greenFee.playingHandicap}</strong></div>
+                    </div>
+                  </article>
+                ` : ""}
+              </aside>
+            </section>
+          </section>
+        `;
+      }
+      function renderAccountStatus() {
+        const profile = getCurrentProfile();
+        return `
+          <section class="screen">
+            <section class="screen__hero">
+              <div class="eyebrow">${t("accountStatus")}</div>
+              <h1 class="hero-title">${t("accountTitle")}</h1>
+              <p class="hero-copy">${t("accountCopy")}</p>
+            </section>
+
+            <section class="grid-2">
+              <article class="panel panel--deep">
+                <div class="eyebrow">${t("statusCurrent")}</div>
+                <h2 class="panel-title">${escapeHtml(profile ? profile.name : "")}</h2>
+                <p class="panel-subtitle">${escapeHtml(profile ? profile.membership : "")}</p>
+                <div class="manager-grid" style="margin-top: 18px;">
+                  <div class="metric-card"><div class="metric-label">Saldo</div><div class="metric-value">${escapeHtml(profile ? profile.balance : "$ 0")}</div><div class="metric-footnote">${t("statusCurrent")}</div></div>
+                  <div class="metric-card"><div class="metric-label">${t("dueDate")}</div><div class="metric-value">${escapeHtml(profile ? profile.dueDate : formatDate())}</div><div class="metric-footnote">${state.locale === "es" ? "Proximo vencimiento registrado" : "Next registered due date"}</div></div>
+                  <div class="metric-card"><div class="metric-label">${t("availableCredit")}</div><div class="metric-value">${escapeHtml(profile ? profile.credit : "$ 0")}</div><div class="metric-footnote">${state.locale === "es" ? "Credito utilizable para servicios" : "Credit available for services"}</div></div>
+                  <div class="metric-card"><div class="metric-label">${t("consultedBy")}</div><div class="metric-value" style="font-size: 28px;">${escapeHtml(profile ? profile.consultedBy : "-")}</div><div class="metric-footnote">${state.locale === "es" ? "Consulta autogestionada desde el totem" : "Self-service consultation from the kiosk"}</div></div>
+                </div>
+              </article>
+
+              <aside class="summary-box">
+                <div class="summary-main">
+                  <div>
+                    <div class="summary-label">${t("accountStatus")}</div>
+                    <div class="summary-value" style="font-size: 34px;">${escapeHtml(profile ? profile.status : "-")}</div>
+                  </div>
+                  <div class="mini-chip">${t("activeDemo")}</div>
+                </div>
+                <p class="summary-note">${state.locale === "es"
+                  ? "La lectura esta pensada para ser clara, ejecutiva y entendible en segundos sobre una pantalla vertical."
+                  : "This view is designed to be clear, executive and understandable in seconds on a vertical screen."}</p>
+                <button class="secondary-btn" data-action="open-quota">${t("payQuota")}</button>
+              </aside>
+            </section>
+          </section>
+        `;
+      }
+
+      function renderQuotaPayment() {
+        const profile = getCurrentProfile();
+        const plans = { monthly: 38500, semester: 210000, annual: 392000 };
+        const amount = plans[state.quotaPayment.plan];
+        return `
+          <section class="screen">
+            <section class="screen__hero">
+              <div class="eyebrow">${t("payQuota")}</div>
+              <h1 class="hero-title">${t("quotaTitle")}</h1>
+              <p class="hero-copy">${t("quotaCopy")}</p>
+            </section>
+
+            <section class="grid-2">
+              <article class="panel panel--deep">
+                <div class="field">
+                  <label>${t("paymentPlan")}</label>
+                  <div class="option-grid">
+                    ${[
+                      { id: "monthly", label: t("monthlyPlan"), amount: plans.monthly },
+                      { id: "semester", label: t("semesterPlan"), amount: plans.semester },
+                      { id: "annual", label: t("annualPlan"), amount: plans.annual }
+                    ].map(plan => `
+                      <button class="choice-card ${state.quotaPayment.plan === plan.id ? "is-active" : ""}" data-action="set-quota-plan" data-plan="${plan.id}">
+                        <h3 class="choice-card__title">${plan.label}</h3>
+                        <p class="choice-card__copy">${formatCurrency(plan.amount)}</p>
+                      </button>
+                    `).join("")}
+                  </div>
+                </div>
+
+                <div class="field" style="margin-top: 18px;">
+                  <label>${t("paymentMethod")}</label>
+                  <div class="method-grid">
+                    <button class="method-btn ${state.quotaPayment.method === "qr" ? "is-active" : ""}" data-action="set-quota-method" data-method="qr">${t("qrPayment")}</button>
+                    <button class="method-btn ${state.quotaPayment.method === "terminal" ? "is-active" : ""}" data-action="set-quota-method" data-method="terminal">${t("terminalPayment")}</button>
+                  </div>
+                </div>
+
+                <div class="summary-box" style="margin-top: 18px;">
+                  <div class="detail-item"><span>${state.locale === "es" ? "Titular" : "Account holder"}</span><strong>${escapeHtml(profile ? profile.name : "")}</strong></div>
+                  <div class="detail-item"><span>${t("paymentPlan")}</span><strong>${escapeHtml(state.quotaPayment.plan === "monthly" ? t("monthlyPlan") : state.quotaPayment.plan === "semester" ? t("semesterPlan") : t("annualPlan"))}</strong></div>
+                  <div class="detail-item"><span>${t("paymentMethod")}</span><strong>${state.quotaPayment.method === "qr" ? t("qrPayment") : t("terminalPayment")}</strong></div>
+                </div>
+              </article>
+
+              <aside class="summary-box">
+                <div class="summary-main">
+                  <div>
+                    <div class="summary-label">${t("payQuota")}</div>
+                    <div class="summary-value">${formatCurrency(amount)}</div>
+                  </div>
+                  <div class="mini-chip">${formatDate()}</div>
+                </div>
+                <p class="summary-note">${state.locale === "es"
+                  ? "La simulacion deja el pago confirmado visualmente para la presentacion comercial."
+                  : "The simulation leaves the payment visually confirmed for the commercial presentation."}</p>
+                <button class="touch-btn" data-action="confirm-quota-payment">${t("simulatePayment")}</button>
+                ${state.quotaPayment.confirmed ? `
+                  <article class="receipt-card">
+                    <div class="eyebrow">${t("paymentConfirmed")}</div>
+                    <h3 class="receipt-title">${escapeHtml(profile ? profile.name : "")}</h3>
+                    <div class="receipt-list">
+                      <div class="status-line"><span>${t("paymentPlan")}</span><strong>${escapeHtml(state.quotaPayment.plan === "monthly" ? t("monthlyPlan") : state.quotaPayment.plan === "semester" ? t("semesterPlan") : t("annualPlan"))}</strong></div>
+                      <div class="status-line"><span>${t("paymentMethod")}</span><strong>${state.quotaPayment.method === "qr" ? t("qrPayment") : t("terminalPayment")}</strong></div>
+                      <div class="status-line"><span>Monto</span><strong>${formatCurrency(amount)}</strong></div>
+                      <div class="status-line"><span>Comprobante</span><strong>CUO-${Date.now().toString().slice(-6)}</strong></div>
+                    </div>
+                  </article>
+                ` : ""}
+              </aside>
+            </section>
+          </section>
+        `;
+      }
+
+      function renderCardUpload() {
+        const totals = scoreTotals();
+        const selectedRow = state.scorecard.rows.find(row => row.hole === state.scorecard.selectedHole) || state.scorecard.rows[0];
+        const stages = [
+          { key: "scanned", label: t("cardScanned") },
+          { key: "validated", label: t("validationReady") },
+          { key: "golfistics", label: t("syncedGolfistics") },
+          { key: "tournament", label: t("loadedTournament") },
+          { key: "aag", label: t("sentAag") }
+        ];
+        const syncEnabled = state.scorecard.stages.validated && totals.pending === 0;
+        return `
+          <section class="screen">
+            <section class="screen__hero">
+              <div class="eyebrow">${t("cardLabel")}</div>
+              <h1 class="hero-title">${t("cardTitle")}</h1>
+              <p class="hero-copy">${t("cardCopy")}</p>
+            </section>
+
+            <section class="grid-2">
+              <article class="panel panel--deep scanner-shell">
+                <div class="scanner-card">
+                  <div class="scanner-paper"><div class="scanner-line" style="--scan-progress: ${state.scorecard.scanProgress};"></div></div>
+                  <div class="scanner-overlay">
+                    <div class="scanner-progress">
+                      <span>${state.locale === "es" ? "Lectura OCR" : "OCR reading"}</span>
+                      <strong>${state.scorecard.scanProgress}%</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="method-grid">
+                  <button class="touch-btn" data-action="start-scan">${t("scanCard")}</button>
+                  <button class="secondary-btn" data-action="sync-scorecard" ${!syncEnabled ? "disabled" : ""}>${t("syncCard")}</button>
+                </div>
+                <div class="status-strip">
+                  ${stages.map((stage, index) => {
+                    const complete = Boolean(state.scorecard.stages[stage.key]);
+                    const current = !complete && ((index === 0 && state.scorecard.scanRunning) || (index === 1 && state.scorecard.stages.scanned) || (index === 2 && state.scorecard.stages.validated && !state.scorecard.stages.golfistics) || (index === 3 && state.scorecard.stages.golfistics && !state.scorecard.stages.tournament) || (index === 4 && state.scorecard.stages.tournament && !state.scorecard.stages.aag));
+                    return `<div class="status-line ${complete ? "is-complete" : current ? "is-current" : ""}"><span>${escapeHtml(stage.label)}</span><span class="status-indicator ${complete ? "is-complete" : totals.pending > 0 && index === 1 ? "is-alert" : ""}">${complete ? (state.locale === "es" ? "Listo" : "Done") : current ? (state.locale === "es" ? "En curso" : "Running") : (state.locale === "es" ? "Pendiente" : "Pending")}</span></div>`;
+                  }).join("")}
+                </div>
+              </article>
+
+              <aside class="summary-box">
+                <div class="summary-main">
+                  <div>
+                    <div class="summary-label">${t("selectScore")}</div>
+                    <div class="summary-value">${totals.totalFinal}</div>
+                  </div>
+                  <div class="mini-chip">${totals.pending} ${state.locale === "es" ? "pend." : "pending"}</div>
+                </div>
+                <p class="summary-note">${t("reviewScore")}</p>
+                <div class="detail-list">
+                  <div class="detail-item"><span>Par</span><strong>${totals.totalPar}</strong></div>
+                  <div class="detail-item"><span>OCR</span><strong>${totals.totalOcr}</strong></div>
+                  <div class="detail-item"><span>Total final</span><strong>${totals.totalFinal}</strong></div>
+                  <div class="detail-item"><span>${t("correctionCount")}</span><strong>${totals.corrected}</strong></div>
+                </div>
+              </aside>
+            </section>
+
+            <section class="grid-2">
+              <article class="panel table-shell">
+                <div class="eyebrow">${t("touchToEdit")}</div>
+                <div class="score-head"><span>Hoyo</span><span>Par</span><span>OCR</span><span>Final</span><span>Estado</span></div>
+                <div class="score-table">
+                  ${state.scorecard.rows.map(row => `
+                    <button class="score-row ${row.flagged && !row.corrected ? "is-flagged" : ""} ${row.hole === state.scorecard.selectedHole ? "is-selected" : ""}" data-action="select-hole" data-hole="${row.hole}">
+                      <span>${row.hole}</span>
+                      <span>${row.par}</span>
+                      <span>${row.ocr}</span>
+                      <span>${row.final}</span>
+                      <span class="score-row__flag ${row.flagged && !row.corrected ? "is-flagged" : "is-ok"}">${row.flagged && !row.corrected ? t("detectedError") : "OK"}</span>
+                    </button>
+                  `).join("")}
+                </div>
+              </article>
+
+              <article class="panel score-editor">
+                <div class="score-editor__header">
+                  <div><div class="eyebrow">${t("selectScore")}</div><h2 class="panel-title" style="margin-bottom: 0;">Hoyo ${selectedRow.hole}</h2></div>
+                  <div class="score-editor__value">${selectedRow.final}</div>
+                </div>
+                <p class="panel-subtitle">${selectedRow.flagged && !selectedRow.corrected
+                  ? (state.locale === "es" ? "El OCR detecto una inconsistencia. Ajusta el score correcto." : "OCR detected an inconsistency. Adjust the correct score.")
+                  : (state.locale === "es" ? "Puedes corregir manualmente cualquier score antes de sincronizar." : "You can manually adjust any score before synchronizing.")}</p>
+                <div class="score-selector">
+                  ${[2,3,4,5,6,7,8,9].map(score => `<button class="score-btn ${selectedRow.final === score ? "is-active" : ""}" data-action="set-hole-score" data-score="${score}">${score}</button>`).join("")}
+                </div>
+                <div class="detail-list">
+                  <div class="detail-item"><span>OCR</span><strong>${selectedRow.ocr}</strong></div>
+                  <div class="detail-item"><span>Final</span><strong>${selectedRow.final}</strong></div>
+                  <div class="detail-item"><span>Estado</span><strong>${selectedRow.flagged && !selectedRow.corrected ? t("detectedError") : "Validado"}</strong></div>
+                </div>
+              </article>
+            </section>
+          </section>
+        `;
+      }
+
+      function renderDashboard() {
+        return `
+          <section class="screen">
+            <section class="screen__hero">
+              <div class="manager-banner">
+                <div>
+                  <div class="eyebrow">${t("managerPanel")}</div>
+                  <h1 class="hero-title">${t("managerTitle")}</h1>
+                  <p class="hero-copy">${t("managerCopy")}</p>
+                </div>
+                <div class="manager-live">${state.locale === "es" ? "En vivo" : "Live"}</div>
+              </div>
+            </section>
+
+            <section class="manager-grid">
+              ${managerData.metrics.map(metric => `<article class="metric-card"><div class="metric-label">${t(metric.labelKey)}</div><div class="metric-value">${metric.value}</div><div class="metric-footnote">${escapeHtml(metric.note)}</div></article>`).join("")}
+            </section>
+
+            <section class="chart-grid">
+              <article class="chart-card">
+                <h2 class="chart-card__title">${t("occupancy")}</h2>
+                <p class="chart-card__copy">${state.locale === "es" ? "Picos reales de ocupacion por franja horaria." : "Real occupancy peaks by time window."}</p>
+                <div class="bar-stack">
+                  ${managerData.occupancy.map(item => `<div class="bar-line"><span>${item.label}</span><div class="bar-track"><div class="bar-fill" style="width:${item.value}%"></div></div><strong>${item.value}%</strong></div>`).join("")}
+                </div>
+              </article>
+
+              <article class="chart-card">
+                <h2 class="chart-card__title">${t("teeUsage")}</h2>
+                <p class="chart-card__copy">${state.locale === "es" ? "Distribucion de salidas por tee configurado." : "Starting distribution by configured tee."}</p>
+                <div class="bar-stack">
+                  ${managerData.teeUsage.map(item => `<div class="bar-line"><span>${item.label}</span><div class="bar-track"><div class="bar-fill ${item.style === "green" ? "bar-fill--green" : ""}" style="width:${item.value}%"></div></div><strong>${item.value}%</strong></div>`).join("")}
+                </div>
+              </article>
+
+              <article class="chart-card">
+                <h2 class="chart-card__title">${t("rounds")}</h2>
+                <p class="chart-card__copy">${state.locale === "es" ? "Participacion de formatos utilizados en el dia." : "Participation by round format during the day."}</p>
+                <div class="ring-row">
+                  ${managerData.rounds.map(item => `<div class="ring-card"><div class="ring" style="--value:${item.value};">${item.value}%</div><div class="ring-label">${item.label}</div></div>`).join("")}
+                </div>
+              </article>
+
+              <article class="chart-card">
+                <h2 class="chart-card__title">${t("participation")}</h2>
+                <p class="chart-card__copy">${state.locale === "es" ? "Alcance del flujo de torneos y cierre post ronda." : "Reach of the tournament flow and post round completion."}</p>
+                <div class="ring-row">
+                  ${managerData.participation.map(item => `<div class="ring-card"><div class="ring" style="--value:${item.value};">${item.value}%</div><div class="ring-label">${item.label}</div></div>`).join("")}
+                </div>
+              </article>
+            </section>
+
+            <section class="grid-2">
+              <article class="panel">
+                <div class="eyebrow">${t("frequentPlayers")}</div>
+                <h2 class="panel-title">${t("frequentPlayers")}</h2>
+                <div class="alert-list">
+                  ${managerData.frequentPlayers.map(player => `<div class="alert-item"><span>${escapeHtml(player)}</span><span class="alert-item__tag is-ok">Top</span></div>`).join("")}
+                </div>
+              </article>
+
+              <article class="panel">
+                <div class="eyebrow">${t("operationalAlerts")}</div>
+                <h2 class="panel-title">${t("operationalStatus")}</h2>
+                <div class="alert-list">
+                  ${managerData.alerts.map(alert => `<div class="alert-item"><span>${escapeHtml(alert.label)} · ${escapeHtml(alert.value)}</span><span class="alert-item__tag is-${alert.tone}">${escapeHtml(alert.value)}</span></div>`).join("")}
+                </div>
+              </article>
+            </section>
+          </section>
+        `;
+      }
+
+      function renderScreen() {
+        switch (state.screen) {
+          case "member-login": return renderMemberLogin();
+          case "member-panel": return renderProfilePanel({ titleKey: "memberPanelTitle" });
+          case "guest-register": return renderGuestRegistration();
+          case "guest-panel": return renderProfilePanel({ titleKey: "guestPanelTitle", isGuest: true });
+          case "services": return renderServicesHub();
+          case "green-fee": return renderGreenFee();
+          case "account": return renderAccountStatus();
+          case "quota": return renderQuotaPayment();
+          case "card-upload": return renderCardUpload();
+          case "dashboard": return renderDashboard();
+          case "home":
+          default:
+            return renderHome();
+        }
+      }
+
+      function render() {
+        updateHeader();
+        screenRoot.innerHTML = renderScreen();
+      }
+
+      function syncGuestFormUI() {
+        const confirmGuestBtn = document.getElementById("confirmGuestBtn");
+        const guestPreviewName = document.getElementById("guestPreviewName");
+        const guestPreviewDni = document.getElementById("guestPreviewDni");
+        const isReady = state.guestForm.name.trim().length >= 3 && state.guestForm.dni.trim().length >= 7;
+        if (confirmGuestBtn) {
+          confirmGuestBtn.disabled = !isReady;
+        }
+        if (guestPreviewName) {
+          guestPreviewName.textContent = state.guestForm.name || demoGuests[0].name;
+        }
+        if (guestPreviewDni) {
+          guestPreviewDni.textContent = state.guestForm.dni || demoGuests[0].dni;
+        }
+      }
+
+      function updateGuestForm(name, value) {
+        state.guestForm[name] = value;
+        syncGuestFormUI();
+      }
+
+      function confirmMember() {
+        if (state.memberDni.length < 7) return;
+        state.userType = "member";
+        state.activeProfile = getMemberFromDni(state.memberDni);
+        state.greenFee.issued = false;
+        state.quotaPayment.confirmed = false;
+        navigate("member-panel");
+      }
+
+      function confirmGuest() {
+        if (state.guestForm.name.trim().length < 3 || state.guestForm.dni.trim().length < 7) return;
+        state.userType = "guest";
+        state.activeProfile = buildGuestProfile(state.guestForm.name, state.guestForm.dni);
+        state.greenFee.issued = false;
+        navigate("guest-panel");
+      }
+
+      function openServices() {
+        navigate("services");
+      }
+
+      function issueGreenFee() {
+        computeGreenFee();
+        state.greenFee.issued = true;
+        state.greenFee.ticketNumber = `GF-${Date.now().toString().slice(-6)}`;
+        if (state.activeProfile) {
+          state.activeProfile.course = `Cancha principal · tee ${getTeeMeta(state.greenFee.tee).label}`;
+          state.activeProfile.status = state.userType === "guest" ? (state.locale === "es" ? "Green fee emitido" : "Green fee issued") : state.activeProfile.status;
+        }
+        render();
+      }
+
+      function confirmQuotaPayment() {
+        state.quotaPayment.confirmed = true;
+        if (state.activeProfile) {
+          state.activeProfile.status = state.locale === "es" ? "Cuota al dia" : "Membership current";
+          state.activeProfile.balance = "$ 0";
+        }
+        render();
+      }
+
+      function selectHole(hole) {
+        state.scorecard.selectedHole = Number(hole);
+        render();
+      }
+
+      function setHoleScore(score) {
+        const targetHole = state.scorecard.selectedHole;
+        state.scorecard.rows = state.scorecard.rows.map(row => row.hole !== targetHole ? row : { ...row, final: Number(score), corrected: true, flagged: Number(score) !== row.ocr });
+        const pending = scoreTotals().pending;
+        state.scorecard.stages.validated = pending === 0 && state.scorecard.stages.scanned;
+        render();
+      }
+
+      function prefillGuest(index) {
+        const guest = demoGuests[Number(index)] || demoGuests[0];
+        state.guestForm.name = guest.name;
+        state.guestForm.dni = guest.dni;
+        render();
+      }
+
+      function useDemoGuest() {
+        prefillGuest(0);
+      }
+
+      function setTournamentChoice(value) {
+        state.greenFee.tournament = value === "yes";
+        if (state.greenFee.tournament) state.greenFee.holes = 18;
+        state.greenFee.issued = false;
+        computeGreenFee();
+        render();
+      }
+
+      function setHolesValue(holes) {
+        state.greenFee.holes = Number(holes);
+        state.greenFee.issued = false;
+        computeGreenFee();
+        render();
+      }
+
+      function setTeeValue(tee) {
+        state.greenFee.tee = tee;
+        state.greenFee.issued = false;
+        computeGreenFee();
+        render();
+      }
+
+      function setPaymentMethodValue(method) {
+        state.greenFee.paymentMethod = method;
+        state.greenFee.issued = false;
+        render();
+      }
+
+      function setQuotaPlan(plan) {
+        state.quotaPayment.plan = plan;
+        state.quotaPayment.confirmed = false;
+        render();
+      }
+
+      function setQuotaMethod(method) {
+        state.quotaPayment.method = method;
+        state.quotaPayment.confirmed = false;
+        render();
+      }
+
+      function openGolfistics() {
+        window.open(GOLFISTICS_URL, "_blank", "noopener,noreferrer");
+      }
+
+      function handleClick(event) {
+        const button = event.target.closest("[data-action]");
+        if (!button) return;
+        const { action, digit, dni, index, hole, score, value, holes, tee, method, plan } = button.dataset;
+        switch (action) {
+          case "go-home": goHome(); break;
+          case "go-back": goBack(); break;
+          case "toggle-language": state.locale = state.locale === "es" ? "en" : "es"; render(); break;
+          case "open-members": navigate("member-login"); break;
+          case "open-guests": navigate("guest-register"); break;
+          case "open-card-upload": navigate("card-upload"); break;
+          case "open-dashboard": navigate("dashboard"); break;
+          case "add-digit":
+            if (state.memberDni.length < 8) { state.memberDni += digit; render(); }
+            break;
+          case "clear-dni": state.memberDni = ""; render(); break;
+          case "fill-dni": state.memberDni = dni; render(); break;
+          case "confirm-member": confirmMember(); break;
+          case "demo-guest": useDemoGuest(); break;
+          case "prefill-guest": prefillGuest(index); break;
+          case "confirm-guest": confirmGuest(); break;
+          case "open-golfistics": openGolfistics(); break;
+          case "open-services": openServices(); break;
+          case "open-green-fee": navigate("green-fee"); break;
+          case "open-account": navigate("account"); break;
+          case "open-quota": navigate("quota"); break;
+          case "set-tournament": setTournamentChoice(value); break;
+          case "set-holes": setHolesValue(holes); break;
+          case "set-tee": setTeeValue(tee); break;
+          case "set-payment-method": setPaymentMethodValue(method); break;
+          case "issue-green-fee": issueGreenFee(); break;
+          case "set-quota-plan": setQuotaPlan(plan); break;
+          case "set-quota-method": setQuotaMethod(method); break;
+          case "confirm-quota-payment": confirmQuotaPayment(); break;
+          case "start-scan": startScanAnimation(); break;
+          case "select-hole": selectHole(hole); break;
+          case "set-hole-score": setHoleScore(score); break;
+          case "sync-scorecard": syncScorecard(); break;
+          default: break;
+        }
+      }
+
+      function handleInput(event) {
+        const target = event.target;
+        if (!(target instanceof HTMLInputElement)) return;
+        if (target.name === "guestName") updateGuestForm("name", target.value);
+        if (target.name === "guestDni") updateGuestForm("dni", target.value.replace(/\D/g, "").slice(0, 8));
+      }
+
+      document.addEventListener("click", handleClick);
+      document.addEventListener("input", handleInput);
+
+      window.addEventListener("beforeunload", () => {
+        stopScanAnimation();
+        clearSyncTimeouts();
+      });
+
+      window.setInterval(setClock, 1000);
+      computeGreenFee();
+      updateHeader();
+      render();
+    })();
+  </script>
+</body>
+</html>
